@@ -160,6 +160,8 @@ http.ListenAndServe(":8080", nil)
 // main函数
 // 把handler设为"/"被访问的处理器,启动服务器,监听8080端口
 
+// 验证
+http://localhost:8080/sfsf
 
 // 小结
 // 任何Web 应用都包含处理器和模板引擎，这两个主要部分分别与HTTP 协议的请求和响应相对应
