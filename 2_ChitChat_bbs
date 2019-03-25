@@ -1,0 +1,268 @@
+  // 2_ChitChat_bbs
+    // ChitChat简介
+帖子 threads
+版主 moderators
+
+    // 应用设计
+// http://chitchat/thread/read?id=123
+多路复用器 multiplexer
+// 将请求重定向至正确的处理器进行处理
+
+    // 数据模型
+user   
+Session
+Thread 
+Post   
+// 分别记录用户,登录,帖子和回复
+
+// 处理器,数据,数据库
+// 模板引擎,模板
+
+    // 请求的接收与处理
+// 发送到URl,定向到正确处理器,处理,调用模板引擎,生成HTML,返回
+
+      // 多路复用器
+// 首先创建了一个多路复用器
+// net/http 标准库提供了一个默认的多路复用器，通过调用NewServeMux 函数来创建：
+mux := http.NewServeMux()
+
+// 将发送至根URL 的请求重定向到处理器，程序使用了Handle Fune 函数：
+mux.HandleFunc("/", index)
+
+// 所有处理器都接受一个ResponseWriter 和一个指向Request 结构的指针作为参数
+
+      // 服务静态文件
+// 使用FileServer函数创建了一个能够为指定目录中的静态文件服务的处理器
+//     并将这个处理器传递给了多路复用器的Handle函数
+// 程序还使用StripPrefix函数去移除请求URL中的指定前缀
+
+files := http.FileServer(http.Dir("/public"))
+mux.Handle("/static/", http.StripPrefix("/static/", files))
+
+// 当服务器接收到一个以 /static/ 开头的URL 请求时，以上两行代码会移除URL 中的
+// /static/ 字符串，然后在public目录中查找被请求的文件
+
+// http://localhost/static/css/bootstrap.min.css
+// 在public目录中查找以下文件：
+<application root>/css/bootstrap.min.css
+
+      // 创建处理器函数
+// 处理器函数实际上就是一个接受ResponseWriter和Request指针作为参数的Go函数
+
+func index(w http.ResponseWriter, r *http.Request) {
+  files := []string{"templates/layout.html",
+                    "templates/navbar.html",
+                    "templates/index.html",}
+  templates := template.Must(template.ParseFiles(files...))
+  threads, err := data.Threads(); if err == nil {
+    templates.ExecuteTemplate(w, "layout", threads)
+  }
+}
+
+// index 函数负责生成HTML并将其写人ResponseWriter中
+
+// 对Go语言来说，用户只需要把位于相同目录下的所有文件都设置成同一个包，
+//     那么这些文件就会与包中的其他文件分享彼此的定义
+
+      // 使用cookie进行访问控制
+公开页面
+私人页面
+
+// 当一个用户成功登录以后，服务器必须在后续的请求中标示出这是一个已登录的用户
+//     服务器会在响应的首部中写入一个cookie，而客户端在接收这个cookie 之后则会把它存储到浏览器里面
+// 响应首部 ..
+func authenticate(w http.ResponseWriter, r *http.Request) {
+  r.ParseForm()
+  user, _ := data.UserByEmail(r.PostFormValue("email"))
+  if user.Password == data.Encrypt(r.PostFormValue("password")) {
+    session := user.CreateSession()
+    cookie := http.Cookie{
+      Name: "_cookie",
+      Value: session.Uuid,
+      HttpOnly: true,
+    }
+    http.SetCookie(w, &cookie)
+    http.Redirect(w, r, "/", 302)
+  } else {
+    http.Redirect(w, r, "/login", 302)
+  }
+}
+
+data.UserbyEmail函数通过给定的电子邮件地址获取与之对应的user结构
+data.Encrypt函数则用于加密给定的字符串
+
+// 使用user结构的user.CreateSession方法创建一个Session 结构
+// 结构的定义如下：
+type Session struct {
+Id int
+Uuid string
+Email string
+UserId int
+CreatedAt time.Time
+}
+// UserId字段用于记录用户表中存储用户信息的行ID
+// Uuid字段存储的是一个随机生成的唯一ID
+
+// 在创建了Session结构之后，程序又创建了Cookie结构
+cookie := http.Cookie{
+  Name: "_cookie",
+  Value: session.Uuid,
+  HttpOnly: true,
+}
+// cookie的名字是随意设置的，而cookie的值则是将要被存储到浏览器里面的唯一ID
+
+// 程序没有给cookie设置过期时间，所以这个cookie就成了一个会话cookie，它将在浏览器关闭时自动被移除
+
+// 程序将HttpOnly字段的值设置成了true，这意味着这个cookie只能通过HTTP或者HTTPS访问
+//   无法通过JavaScript等非HTTPAPI进行访问
+
+http.SetCookie(writer, &cookie)
+// 把cookie添加到响应的首部
+
+// 在处理器函数里面检查当前访问的用户是否已经登录
+//     创建一个名为session的工具utility函数，并在各个处理器函数里面复用它
+
+vi util.go
+func session(w http.ResponseWriter, r *http.Request)(sess data.Session, err error){
+cookie, err := r.Cookie("_cookie")
+if err == nil {
+  sess = data.Session{Uuid: cookie.Value}
+  if ok, _ := sess.Check(); !ok {
+    err = errors.New("Invalid session")
+    }
+  }
+return
+}
+
+// 从请求中取出cookie
+// cookie, err := r.Cookie("_cookie")
+
+// 如果cookie不存在，那么很明显用户并未登录；
+// 如果cookie存在，那么session函数将继续进行第二项检查,访问数据库并核实会话的唯一ID是否存在
+
+// 第二项检查是通过data.Session 函数完成的，这个函数会从cookie 中取出会话并调用后者的Check 方法：
+
+_, err := session(w, r)
+
+    // 使用模板生成HTML响应
+private_tmpl_files := []string{"templates/layout.html",
+                              "templates/private.navbar.html",
+                              "templates/index.html"}
+// 跟Mustache 和CTemplate 等其他模板引擎一样，切片指定的这3个HTML文件都包含了特定的嵌入命令，
+// 这些命令被称为动作（ action ），动作在HTML 文件里面会被{{符号和}}符号包围
+
+// 程序会调用ParseFiles 函数对这些模板文件进行语法分析，并创建出相应的模板
+
+vi layout.html
+vi navbar.html
+vi index.html
+// layout 模板已经引用了其他两个模板
+
+// 整理代码
+func generateHTML(w http.ResponseWriter, data interface{}, fn ...string) {
+ var files []string
+ for _, file := range fn {
+    files = append(files, fmt.Sprintf("templates/%s.html", file))
+ }
+ templates := template.Must(template.ParseFiles(files...))
+ templates.ExecuteTemplate(writer, "layout", data)
+}
+
+// generateHTML函数接受一个ResponseWriter,一些数据以及一系列模板文件作为参数，
+// 然后对给定的模板文件进行语法分析
+
+data 参数的类型为空接口类型(empty interface type,)，这意味着该参数可以接受任何类型的值作为输入
+
+// Go 语言中的接口由一系列方法构成， 并且每个接口就是一种类型。一个空接口就是一个空集合， 
+//   这意味着任何类型都可以成为一个空接口，也就是说任何类型的值都可以传递给函数作为参数
+
+func index(writer http.ResponseWriter, request *http.Request) {
+  threads, err := data.Threads(); if err == nil {
+    _, err := session(writer, request)
+    if err != nil {
+      generateHTML(writer, threads, "layout", "public.navbar", "index")
+    } else {
+      generateHTML(writer, threads, "layout", "private.navbar", "index")
+    }
+  }
+}
+
+    // 安装PostgreSQL
+      // 在Linux或FreeBSD系统上安装
+sudo apt-get install postgresql postgresql-contrib
+sudo su postgres
+createuser –interactive
+createdb <YOUR ACCOUNT NAME>
+
+      // 在Mac OS X系统上安装
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+
+      // 在Windows系统上安装
+www.enterprisedb.com/products-services-training/pgdownload
+
+    // 连接数据库
+// 把所有与数据相关的代码都放到另一个包里面
+import (
+"github.com/sausheong/gwp/Chapter_2_Go_ChitChat/chitchat/data"
+)
+
+
+package data
+import(
+"time"
+)
+type Thread struct {
+Id int
+Uuid string
+Topic string
+UserId int
+CreatedAt time.Time
+}
+
+createdb chitchat
+
+vi setup.sql
+
+psql –f setup.sql –d chitchat
+
+vi data.go
+
+Var Db *sql.DB
+func init() {
+var err error
+Db, err = sql.Open("postgres", "dbname=chitchat sslmode=disable")
+if err != nil {
+log.Fatal(err)
+}
+return
+}
+
+// 在Web 应用启动时对Db 变量进行初始化的init 函数
+
+vi thread.go
+
+func Threads() (threads []Thread, err error){
+rows, err := Db.Query("SELECT id, uuid, topic, user_id, created_at FROM
+threads ORDER BY created_at DESC")
+if err != nil {
+return
+}
+for rows.Next() {
+th := Thread{}
+if err = rows.Scan(&th.Id, &th.Uuid, &th.Topic, &th.UserId,
+ &th.CreatedAt); err != nil {
+return
+}
+threads = append(threads, th)
+}
+rows.Close()
+return
+}
+
+vi index.html
+    // 启动服务器
+vi main.go
+go build
+./chitchat
+    // Web应用运作流程回顾
+    // 小结

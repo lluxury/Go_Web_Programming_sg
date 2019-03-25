@@ -1,0 +1,182 @@
+
+ https://github.com/lluxury/test_gwp 
+
+  // Go与Web应用
+    // 使用Go语言构建Web应用
+    // Web应用的工作原理
+    // HTTP简介
+    // Web应用的诞生
+    // HTTP请求
+// 请求行(request-line);
+// 零个或任意多个请求首部(header);
+// 一个空行；
+// 可选的报文主体(body)
+GET  /Protoco ls/rfc2616/rf c2616.html HTTP/l.l
+
+  // 请求方法
+GET
+HEAD
+POST
+PUT
+DELETE
+TRACE
+OPTIONS
+CONNECT
+PATCH
+
+  // 安全的请求方法
+// GET 、HEAD 、OPTIONS 和TRACE 都不会对服务器的状态进行修改
+// POST 、PUT 和DELETE 都能够对服务器的状态进行修改,不是安全的请求方法
+
+  // 幂等的请求方法
+// 如果一个HTTP方法在使用相同的数据进行第二次调用的时候，不会对服务器的状态造成任
+// 何改变，那么这个方法就是采等的 idempotent
+
+// PUT 和DELETE 虽然不安全，但却是幕等的
+// POST 方法既不安全也非幕等
+
+  // 浏览器对请求方法的支持
+// HTML的form标签有一个名为method的属性，可以设置为get 或者post
+// 使用XMLH即Request (XHR)来获得对PUT方法和DELETE方法的支持
+
+  // 请求首部
+// 首部由任意多个用冒号分隔的纯文本键值对组成， 最后以回车(CR)和换行(LF)结尾
+
+Accept          内容类型
+Accept-Charset  客户端要求服务器使用的字符集编码
+Authorization   这个首部用于向服务器发送基本的身份验证证书
+Cookie          所有cookie 回传给服务器
+Content-Length  请求主体的字节长度
+Content-Type    记录主体内容的类型 x-www-form-urlencoded 或 multipart/form-data
+Host            服务器的名字以及端口号
+Referrer        发起请求的页面所在的地址
+User-Agent      对发起请求的客户端进行描述
+
+    // HTTP响应
+// 响应状态码
+1XX 接收已处理
+2XX 接收已成功处理
+3XX 重定向
+4XX 客户端错误
+5XX 服务端错误
+
+// 响应首部
+Allow           服务器支持哪些请求方法
+Content-Length  响应主体的字节长度
+Content-Type    主体内容的类型
+Date            当前时间 标准时间
+Location        重定向时使用， 它会告知客户端接下来应该向哪个URL 发送请求
+Server          返回响应的服务器的域名
+Set-Cookie      在客户端里面设置一个cookie
+WWW-Authenticate 通知在Auth orization 请求首部中应该提供哪种类型的身份验证信息
+
+    // URI
+// 对统一资源标识符 包含了URN 和URL
+<scheme name> : <hierarchical part> [ ? <query> ][ # <fragment> ]
+方案名称        分层部分                查询参数      片段
+
+// URL 里面是不能够包含空格及?和# 需要URL编码
+// URL 编码会把保留字符转换成该字符在ASCII 编码中对应的字节值(byte value)，接着把
+// 这个字节值表示为一个两位长的十六进制数字，最后再在这个十六进制数字的前面加上%
+%20 空格在ASCII 编码中的字节值为32 ，也就是十六进制中的20
+// http://www.example.com/docs/file?name=sau%20sheong&location=singapore
+
+    // HTTP/2 简介
+// 完全多路复用,首部压缩
+
+HTTP/2 是一种二进制协议,HTTP l.x是文本的
+// 无法再通过telnet 等应用程序直接发送HTTP/2 报文来进行调试
+
+
+// 在Go 1.6 版本中，用户在使用HTTPS 时将自动使用HTTP/2 ，
+    // Go 1.6 之前的版本则在golang.org/x/net/http2 包里面实现了HTTP/2 协议
+
+    // Web应用的各个组成部分
+// 处理器
+handlers 
+// Web 应用中的处理器除了要接收和处理客户端发来的请求，还需要调用模板引擎，然后由模
+// 板引擎生成HTML 并把数据填充至将要回传给客户端的响应报文当中
+
+// 用MVC模式来讲处理器既是控制器也是模型,
+
+// 控制器只包含路由routing代码以及HTTP 报文的解包和打包逻辑
+// 模型包含应用的逻辑以及数据
+
+// 使用服务对象service object 或者函数function 对模型进行操作?
+
+// 模板引擎
+template engine
+// 通过HTTP 响应报文回传给客户端的HTML 是由模板(t巳mplate)转换而成的，
+//   模板引擎(template engine)则通过模板和数据来生成最终的HTML
+
+静态模板
+CTemplate and Mustache 都属于静态模板引擎
+
+动态模板
+Java ServerPages(JSP), Active Server Pages (ASP), and Embedded Ruby (ERB)
+
+    // Hello Go 
+// test9 root
+cd /root/.gvm/pkgsets/system/global/src/first_webapp
+vi server.go
+go install first_webapp
+
+package main
+// 声明所属包 
+// Go 语言要求可执行程序必须位于main 包当中
+
+// 通常需要将Web 应用部署到应用服务器上面，并由应用服务器为Web 应用提供运行环境
+//     对Go来说，Web应用的运行环境是由net/http 包直接提供的，
+//     这个包和应用的源代码会一起被编译成一个可以快速部署的独立Web 应用
+
+// 包提供web运行环境?
+
+// 导入所需包 
+// fmt提供格式化, net/http 提供交互
+
+
+// 定义handler
+// handler通常用来表示在指定事件被触发之后，负责对事件进行处理的回调函数
+
+func handler(writer http.ResponseWriter, request *http.Request) {
+fmt.Fprintf(writer, "Hello World, %s!", request.URL.Path[1:])
+}
+
+// 处理器函数接受两个参数作为输入，第－个参数为ResponseWriter 接口， 第二个参数为指向Request结构的指针
+
+// handler 函数会从Request 结构中提取相关的信息，然后创建一个HTTP响应
+//   最后再通接过ResponseWriter接口将响应返回给客户
+
+// handler 函数内部的Fprintf 函数在被调用时则会使用一个ResponseWriter接口、一个
+// 带有单个格式化指示符(% s)的格式化字符串以及从Request 结构里面提取到的路径信息作为参数
+
+curl http://192.168.142.9:8080/sausheong/was/here
+
+func main() {
+http.HandleFunc("/", handler)
+http.ListenAndServe(":8080", nil)
+}
+
+// main函数
+// 把handler设为"/"被访问的处理器,启动服务器,监听8080端口
+
+
+// 小结
+// 任何Web 应用都包含处理器和模板引擎，这两个主要部分分别与HTTP 协议的请求和响应相对应
+
+// 它允许用户登录到论坛里面，然后在论坛上发布新帖子，又或者回复其他用户发表的帖子
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
