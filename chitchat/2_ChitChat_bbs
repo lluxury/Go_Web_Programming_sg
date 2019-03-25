@@ -46,6 +46,16 @@ mux.Handle("/static/", http.StripPrefix("/static/", files))
 // 在public目录中查找以下文件：
 <application root>/css/bootstrap.min.css
 
+// index 是一个函数,在route_main.go 包中
+// 因为代码不全,屏蔽了index的细节
+
+回头需要整理一下,笔记太多没有用途
+
+
+//测试 404
+http://localhost:8080/static/css/bootstrap.min.css
+
+
       // 创建处理器函数
 // 处理器函数实际上就是一个接受ResponseWriter和Request指针作为参数的Go函数
 
