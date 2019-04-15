@@ -88,6 +88,13 @@ func index(w http.ResponseWriter, r *http.Request) {
 // 对Go语言来说，用户只需要把位于相同目录下的所有文件都设置成同一个包，
 //     那么这些文件就会与包中的其他文件分享彼此的定义
 
+
+
+
+
+
+
+
       // 使用cookie进行访问控制
 公开页面
 私人页面
@@ -114,6 +121,7 @@ func authenticate(w http.ResponseWriter, r *http.Request) {
 
 data.UserbyEmail函数通过给定的电子邮件地址获取与之对应的user结构
 data.Encrypt函数则用于加密给定的字符串
+// 这2个函数还没写
 
 // 使用user结构的user.CreateSession方法创建一个Session 结构
 // 结构的定义如下：

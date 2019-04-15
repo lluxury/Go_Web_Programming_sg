@@ -33,6 +33,21 @@ C:\Users\yann\go\src\github.com\sausheong\gwp
 .\main.go:28:15: undefined: template
 .\main.go:29:18: undefined: data
 
+04-15 17:46
+2.4.4 chitchat  新增2个文件,修改1个,报错更多,因为涉及的模块还没写,继续下去
+.\main.go:35:22: cannot refer to unexported name data.threads
+.\main.go:35:22: undefined: data.threads
+.\main.go:36:20: undefined: session
+.\main.go:45:14: undefined: templates
+.\main.go:45:34: template.Must undefined (type *"html/template".Template has no field or method Must)
+.\main.go:47:14: undefined: templates
+.\main.go:47:34: template.Must undefined (type *"html/template".Template has no field or method Must)
+.\main.go:49:10: undefined: templates
+
+
+
+
+
 
 
 # Go_Web_Programming_sg
