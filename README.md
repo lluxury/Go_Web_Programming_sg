@@ -59,6 +59,12 @@ C:\Users\yann\go\src\github.com\sausheong\gwp
 .\main.go:38:17: undefined: generateHTML
 .\main.go:40:17: undefined: generateHTML
 
+04-15 19:00
+2.8.0 chitchat 第二章的最后一节,我们自己敲的代码仍然没有运行起来,毕竟让其运行起来是全书的内容
+不过对一下午的劳动有个小奖励: 使用下载的源码,连上数据库是可以运行起来的,使用 go build,注意项目路径
+C:\Users\yann\go\src\github.com\sausheong\gwp\Chapter_2_Go_ChitChat\chitchat
+http://localhost:8080
+
 
 
 
