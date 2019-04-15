@@ -12,10 +12,10 @@ Go Web编程
 2. 程序运行需要相应的包环境,比如我的:
 
 GOPATH=C:\Users\yann\go
-# 项目目录:
+项目目录:
 C:\Users\yann\go\src\yann\Go_Web_Programming_sg\chitchat
 
-# 如果不确认可也以用原文的地址
+ 如果不确认可也以用原文的地址
 C:\Users\yann\go\src\github.com\sausheong\gwp
 
 
