@@ -24,7 +24,9 @@ C:\Users\yann\go\src\github.com\sausheong\gwp
 1.10  first_webapp  
 项目很简单, 进入目录 运行即可, 最后网页上可以看到 Hello World!
 
-
+04-15 16:14
+2.4.1 chitchat   开始有代码, 尝试运行一下会报找不到 index.  正常报错 因为index函数还没写
+.\main.go:14:22: undefined: index
 
 
 # Go_Web_Programming_sg
