@@ -21,6 +21,11 @@ Post
     // 请求的接收与处理
 // 发送到URl,定向到正确处理器,处理,调用模板引擎,生成HTML,返回
 
+
+
+
+
+
       // 多路复用器
 // 首先创建了一个多路复用器
 // net/http 标准库提供了一个默认的多路复用器，通过调用NewServeMux 函数来创建：
@@ -30,6 +35,11 @@ mux := http.NewServeMux()
 mux.HandleFunc("/", index)
 
 // 所有处理器都接受一个ResponseWriter 和一个指向Request 结构的指针作为参数
+
+
+
+
+
 
       // 服务静态文件
 // 使用FileServer函数创建了一个能够为指定目录中的静态文件服务的处理器
@@ -49,11 +59,15 @@ mux.Handle("/static/", http.StripPrefix("/static/", files))
 // index 是一个函数,在route_main.go 包中
 // 因为代码不全,屏蔽了index的细节
 
-回头需要整理一下,笔记太多没有用途
-
 
 //测试 404
 http://localhost:8080/static/css/bootstrap.min.css
+
+
+
+
+
+
 
 
       // 创建处理器函数
@@ -246,6 +260,24 @@ log.Fatal(err)
 }
 return
 }
+
+
+vi /etc/postgresql/9.3/main/postgresql.conf
+  listen_addresses = '*'
+
+vi /etc/postgresql/9.3/main/pg_hba.conf
+  # TYPE  DATABASE  USER  CIDR-ADDRESS  METHOD
+  host  all  all 0.0.0.0/0 md5
+
+sudo service postgresql restart
+
+// 使用帐号登录
+alter user postgres with password'abc';
+\l
+\c yann
+\dt
+
+
 
 // 在Web 应用启动时对Db 变量进行初始化的init 函数
 

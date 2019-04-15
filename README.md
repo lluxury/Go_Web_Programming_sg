@@ -28,6 +28,12 @@ C:\Users\yann\go\src\github.com\sausheong\gwp
 2.4.1 chitchat   开始有代码, 尝试运行一下会报找不到 index.  正常报错 因为index函数还没写
 .\main.go:14:22: undefined: index
 
+04-15 16:35
+2.4.3 chitchat   涉及的template,和data包现在还没有写,依然无法运行 
+.\main.go:28:15: undefined: template
+.\main.go:29:18: undefined: data
+
+
 
 # Go_Web_Programming_sg
 go web 
