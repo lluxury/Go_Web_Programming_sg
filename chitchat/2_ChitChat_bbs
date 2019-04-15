@@ -176,6 +176,15 @@ return
 
 _, err := session(w, r)
 
+
+
+
+
+
+
+
+
+
     // 使用模板生成HTML响应
 private_tmpl_files := []string{"templates/layout.html",
                               "templates/private.navbar.html",
@@ -218,6 +227,16 @@ func index(writer http.ResponseWriter, request *http.Request) {
     }
   }
 }
+
+
+
+// {{ define "content" }} 
+// {{ define "content" }}
+// 模板开头定义,引用到的模板名,不要看文件名
+
+
+
+
 
     // 安装PostgreSQL
       // 在Linux或FreeBSD系统上安装

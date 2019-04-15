@@ -44,7 +44,13 @@ C:\Users\yann\go\src\github.com\sausheong\gwp
 .\main.go:47:34: template.Must undefined (type *"html/template".Template has no field or method Must)
 .\main.go:49:10: undefined: templates
 
-
+04-15 18:23
+2.5.0 chitchat  新增3个模版文件,修改2个文件,仍然在报错,书上的代码和git上提供的,也有些不一样了
+.\main.go:31:25: cannot refer to unexported name data.threads
+.\main.go:31:25: undefined: data.threads
+.\main.go:32:23: undefined: session
+.\main.go:34:17: undefined: generateHTML
+.\main.go:36:17: undefined: generateHTML
 
 
 
