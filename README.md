@@ -52,6 +52,12 @@ C:\Users\yann\go\src\github.com\sausheong\gwp
 .\main.go:34:17: undefined: generateHTML
 .\main.go:36:17: undefined: generateHTML
 
+04-15 18:48
+2.7.0 chitchat 好消息是pg数据库可以用了,命令行访问成功,对照源码做了一些修改, 仍然无法启动,不过报错在减少
+.\main.go:34:4: undefined: error_message
+.\main.go:36:23: undefined: session
+.\main.go:38:17: undefined: generateHTML
+.\main.go:40:17: undefined: generateHTML
 
 
 

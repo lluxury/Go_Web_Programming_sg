@@ -242,8 +242,9 @@ func index(writer http.ResponseWriter, request *http.Request) {
       // 在Linux或FreeBSD系统上安装
 sudo apt-get install postgresql postgresql-contrib
 sudo su postgres
-createuser –interactive
+createuser --interactive
 createdb <YOUR ACCOUNT NAME>
+// 我写的yann
 
       // 在Mac OS X系统上安装
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
@@ -270,11 +271,16 @@ UserId int
 CreatedAt time.Time
 }
 
-createdb chitchat
+
+
+createdb yann
 
 vi setup.sql
 
-psql –f setup.sql –d chitchat
+psql –f setup.sql –d yann
+
+
+
 
 vi data.go
 
@@ -282,6 +288,8 @@ Var Db *sql.DB
 func init() {
 var err error
 Db, err = sql.Open("postgres", "dbname=chitchat sslmode=disable")
+// 这里我修改成了远程访问的模式,有安全隐患,还没加固
+
 if err != nil {
 log.Fatal(err)
 }
