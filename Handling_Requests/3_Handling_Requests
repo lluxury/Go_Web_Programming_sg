@@ -1,0 +1,103 @@
+
+
+    // 第3章 接收请求
+  // Go的net/http标准库
+    // 不了解下的模仿
+    // 货物拜 cargo cult programming
+    // 不同连接之间使用cookie和会话实现信息持久化
+    // 统一接口
+    // net/http 
+      // 分客户端和服务端
+      // Client, Response, Header,Request Cookie
+      // Server,ServerMux,Handler, ResponseWriter ,Header, Request,Cookie
+  // 使用Go构建服务器
+
+
+
+
+    // Go Web服务器
+      // DefaultServerMux
+package main
+
+import (
+    "net/http"
+)
+func main() {
+    http.ListenAndServe("", nil)
+    
+}
+
+
+      // ListenAndServe
+    server := http.Server{
+        Addr: "127.0.0.1:8080",
+        Handler: nil,
+    }
+// 增加了一些配置,默认端口改为8080
+
+      // server结构
+// 注意结构体字段
+
+    // 通过HTTPS提供服务
+      // ListenAndServeTLS
+      // 安全套接字层
+      // 生成证书
+        // crypto
+        // 需要私钥
+      // X.509标准
+        // 编码的ASN.1格式文档
+        // BER
+        // DER
+        // PEM
+          // Base64
+  // 处理器和处理器函数
+    // 常识
+      // 什么都不写会404
+    // 处理请求
+      // 上文的2个参数
+      // DefaultServeMux是ServeMux及Handler的实例
+      // 是多路复用也是处理器
+      // MyHandler 自己重写一个
+    // 使用多个处理器
+      // 多个处理器去处理不同的URL
+      // 通过http.Handle函数绑定到DS
+      // Handle是ServeMux 结构的方法
+      // 接受者及实例化 使用
+      // func (h *HelloHandler) ServeHTTP(){}
+      // hello := HelloHandler{)
+      // http.Handle ( ” / hello”, &hel l o)
+    // 处理器函数
+      // 与处理器拥有相同行为的函数
+      // 与ServerHTTP 方法拥有相同的签名
+      // HandleFunc函数类型
+        // 把函数转成带方法的Handler
+      // helloHandler := HandlerFunc(hello)
+      // 只是比较方便的一个手段
+        // 不能代替处理器
+    // 串联多个处理器和处理器函数
+      // 将函数传给另一个函数调用
+      // 横切关注点
+      // log函数接受函数参数,返回函数
+        // 反射
+      // 管道处理
+        // 验证访问记日志
+      // http.Handle("/hello", protect(log(hello)))
+    // ServeMux和DefaultServeMux
+      // 会在结构的映射map里面找出与被请求URL最匹配的URL
+      // ServeMux是一个结构不是接口
+      // DefaultServeMux 不是实现是实例?
+      // 最小惊讶原则
+      // 末尾加 / 会部分匹配
+    // 使用其他多路复用器
+      // Gorilla
+      // HttpRouter
+      // 原生无法使用变量实现URL 模式匹配
+      // mux := httprouter.New()
+      // mux.GET （”／ hell 。／： name ”， hello)
+      // 要手工go get github.corn/xx
+  // 使用HTTP/2
+    // 1.6 以上
+    // ConfigureServer
+    // http2.ConfiqureServer(&server ，&http2. Server{})
+    // curl  -I --http2 --insecure https://localhost:8080/
+// 
