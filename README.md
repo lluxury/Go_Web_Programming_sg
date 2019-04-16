@@ -82,27 +82,27 @@ go run server.go
 
 * **04-16 11:53**    [3.3.1 Handling_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/d2ec468b23cf3af107f2d335d454e2215d46293a) 
 修改了默认的多路复用器,访问任何地址都显示hello world<br>
-http://localhost:8080 <br>
-http://localhost:8080/abc<br>
+访问 localhost:8080 <br>
+访问 localhost:8080/abc<br>
 
 * **04-16 13:29**    [3.3.2 Handling_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/5d060a9398b3a45a5b1d3358fb7033852630a0cf) 
 使用多个处理器,处理请求<br>
-http://localhost:8080/hello<br>
-http://localhost:8080/world<br>
+访问 localhost:8080/hello<br>
+访问 localhost:8080/world<br>
 
 * **04-16 13:38**    [3.3.3 Handling_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/68b24a2c1a4181982eec728c35dc72740a3c7ba9) 
 使用处理器函数,处理请求<br>
-http://localhost:8080/hello<br>
-http://localhost:8080/world<br>
+访问 localhost:8080/hello<br>
+访问 localhost:8080/world<br>
 
 * **04-16 14:30**    [3.3.4 Handling_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/1933e0b139cacd8b58217ea8be63fb35d51c86c0) 
 串联多个处理器或处理器函数 <br>
-http://localhost:8080/hello
+访问 localhost:8080/hello
 注意看控制台输出
 
 * **04-16 15:23**    [3.3.6 Handling_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/8d5cf7ca1c57f944d51c17ca7935e38250973c82) 
 换用第三方多路复用器 <br>
-http://localhost:8080/hello/yann
+访问 localhost:8080/hello/yann
 
 * **04-16 15:42**    [3.4.0 Handling_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/ff309baa47063a1db1a1422e550ec7ee2b7df0da) 
 导入包,启用http2,花费了很多时间,最终测试成功 <br>
