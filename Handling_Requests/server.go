@@ -3,30 +3,37 @@ package main
 import (
 	"net/http"
 	"fmt"
-	"reflect"
-	"runtime"
 )
 
-func hello(w http.ResponseWriter, r *http.Request)  {
+type HelloHandler struct {}
+
+func (h HelloHandler) ServeHTTP (w http.ResponseWriter, r *http.Request)  {
 	fmt.Fprintf(w,"Hello")
 }
 
-func log(h http.HandlerFunc) http.HandlerFunc  {
-			// 接收 HandleFunc 类型参数
-	return func(w http.ResponseWriter, r *http.Request)  {
-			// log 返回 HandleFunc 类型函数
-		name := runtime.FuncForPC(reflect.ValueOf(h).Pointer()).Name()
-			// 返回函数获取传入函数名字,再调用函数(h参数)
-		fmt.Println("Handler function called -" + name)
-		h(w, r)
-	}
+func log(h http.Handler) http.Handler  {
+	return http.HandlerFunc (func (w http.ResponseWriter, r *http.Request)  {
+		fmt.Printf("Handler called - %T\n", h)
+		h.ServeHTTP(w, r)		
+	})
+	
+}
+
+func protect(h http.Handler) http.Handler  {
+	return http.HandlerFunc(func (w http.ResponseWriter, r *http.Request)  {
+	// some code
+	fmt.Printf("protect work - %T\n", h)
+	h.ServeHTTP(w, r)		
+	})
 }
 
 func main() {
 	server := http.Server{
 		Addr: "127.0.0.1:8080",
 	}
-	http.HandleFunc("/hello", log(hello))
+	hello := HelloHandler{}
+	// http.HandleFunc("/hello", protect(log(hello)))
+	http.Handle("/hello", protect(log(hello)))
 	
 	server.ListenAndServe()
 }

@@ -118,12 +118,21 @@ http://localhost:8080/abd
       // 管道处理
         // 验证访问记日志
       // http.Handle("/hello", protect(log(hello)))
+
+// 使用处理器函数串联,相对简单
+// 使用处理器串联,比较直观
+
+
+
     // ServeMux和DefaultServeMux
       // 会在结构的映射map里面找出与被请求URL最匹配的URL
       // ServeMux是一个结构不是接口
       // DefaultServeMux 不是实现是实例?
       // 最小惊讶原则
       // 末尾加 / 会部分匹配
+    http.Handle("/hello", protect(log(hello)))  // 绝对匹配
+    http.Handle("/hello/", protect(log(hello))) // 可以匹配 /hello/there
+
     // 使用其他多路复用器
       // Gorilla
       // HttpRouter
