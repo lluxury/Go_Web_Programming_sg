@@ -62,17 +62,37 @@ C:\Users\yann\go\src\github.com\sausheong\gwp
 
 * **04-15 19:00**    [2.8.0 chitchat](https://github.com/lluxury/Go_Web_Programming_sg/tree/d14bd9c140242d4cd945ea00ba96f2f4ff9d5289) 
 第二章的最后一节,我们自己敲的代码仍然没有运行起来,毕竟让其运行起来是全书的内容<br>
-不过对一下午的劳动有个小奖励: 使用下载的源码,连上数据库是可以运行起来的,使用 go build,注意项目路径
+不过对一下午的劳动有个小奖励: 使用下载的源码,连上数据库是可以运行起来的,使用 go build<br>
+注意项目路径
 C:\Users\yann\go\src\github.com\sausheong\gwp\Chapter_2_Go_ChitChat\chitchat<br>
-http://localhost:8080
+访问 http://localhost:8080
 
 
 
-* **04-16 10:33**    [3.2.1 Handling_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/d14bd9c140242d4cd945ea00ba96f2f4ff9d5289) 
+* **04-16 10:33**    [3.2.1 Handling_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/092d31cca82cdf816a5eb9befe00ec583afe5855) 
 第三章的第一次代码,运行成功,最简单的Web服务器,默认端口80访问 <br>
 404 page not found
 
-04-16 11:01
+* **04-16 11:01**    [3.2.2 Handling_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/0eb335d15b216ea304c6de0379b13b9984376411) 
+配置带证书的web服务器,及自己生成证书,运行成功 <br>
+go run gencert.go
+go run server.go
+注意,这次要用 https 访问, 运行成功,出现404页面
+404 page not found
+
+* **04-16 11:53**    [3.3.1 Handling_Requests]( ) 
+修改了默认的多路复用器,访问任何地址都显示hello world<br>
+http://localhost:8080 <br>
+http://localhost:8080/abc<br>
+
+* **04-16 13:29**    [3.3.2 Handling_Requests]( ) 
+使用多个处理器,处理请求<br>
+http://localhost:8080/hello<br>
+http://localhost:8080/world<br>
+
+04-16 13:38
+
+
 
 
 

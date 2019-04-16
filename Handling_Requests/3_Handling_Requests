@@ -63,11 +63,24 @@ vi gencert.go
   // 处理器和处理器函数
     // 常识
       // 什么都不写会404
+// 因为没有写任何处理器, 404 是多路复用器的默认返回
+
     // 处理请求
       // 上文的2个参数
+ResponseWriter接口
+指向Request结构的指针
+
+// 任何接口,只要有ServeHTTP方法,带有相同签名,就是一个处理器
+
       // DefaultServeMux是ServeMux及Handler的实例
       // 是多路复用也是处理器
       // MyHandler 自己重写一个
+vi server.go
+
+http://localhost:8080
+http://localhost:8080/abd
+// // 修改了默认的多路复用器,任何地址都显示helloworld
+
     // 使用多个处理器
       // 多个处理器去处理不同的URL
       // 通过http.Handle函数绑定到DS
@@ -76,12 +89,21 @@ vi gencert.go
       // func (h *HelloHandler) ServeHTTP(){}
       // hello := HelloHandler{)
       // http.Handle ( ” / hello”, &hel l o)
+
+// 让服务器使用默认的 DefaultServeMux 作为处理器,然后通过 http.Handle 函数将处理器绑定至 DefaultServeMux
+// 需要注意的是,虽然 Handle 函数来源于 http 包，但它实际上是 ServeMux 结构的方法:
+// 这些函数是为了操作便利而创建的函数,调用它们等同于调用 DefaultServeMux 的某个方法
+
+
     // 处理器函数
-      // 与处理器拥有相同行为的函数
-      // 与ServerHTTP 方法拥有相同的签名
+// 与处理器拥有相同行为的函数
+// 与ServerHTTP 方法拥有相同的签名
+
       // HandleFunc函数类型
         // 把函数转成带方法的Handler
       // helloHandler := HandlerFunc(hello)
+// Go 语言拥有一种 HandlerFunc 函数类型,它可以把一个带有正确签名的函数 f 转换成一个带有方法 f 的Handler
+
       // 只是比较方便的一个手段
         // 不能代替处理器
     // 串联多个处理器和处理器函数
