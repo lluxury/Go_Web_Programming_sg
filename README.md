@@ -67,10 +67,12 @@ C:\Users\yann\go\src\github.com\sausheong\gwp\Chapter_2_Go_ChitChat\chitchat<br>
 http://localhost:8080
 
 
+
 * **04-16 10:33**    [3.2.1 Handling_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/d14bd9c140242d4cd945ea00ba96f2f4ff9d5289) 
 第三章的第一次代码,运行成功,最简单的Web服务器,默认端口80访问 <br>
 404 page not found
 
+04-16 11:01
 
 
 

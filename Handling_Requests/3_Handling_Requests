@@ -40,9 +40,16 @@ func main() {
 
     // 通过HTTPS提供服务
       // ListenAndServeTLS
+vi server.go
+
       // 安全套接字层
       // 生成证书
         // crypto
+vi gencert.go
+// 将扩张密钥用法 extended key usage 设置成服务器身份验证操作的 X.509证书
+// 及创建私钥,公钥,
+// Certificate 结构,唯一号码,标题,有效期,KeyUsage,ExtKeyUsage
+
         // 需要私钥
       // X.509标准
         // 编码的ASN.1格式文档
@@ -50,6 +57,9 @@ func main() {
         // DER
         // PEM
           // Base64
+// 如果证书是由CA 签发的，那么证书文件中将同时包含服务器签名以及CA签名，其中服务器签名在前,CA签名在后
+
+
   // 处理器和处理器函数
     // 常识
       // 什么都不写会404
