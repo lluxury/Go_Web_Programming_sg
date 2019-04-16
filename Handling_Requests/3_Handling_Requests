@@ -150,5 +150,15 @@ http://localhost:8080/hello/yann
     // 1.6 以上
     // ConfigureServer
     // http2.ConfiqureServer(&server ，&http2. Server{})
+// 虽然作者说1.6以上不需要安装,但我1.10还是安装了才能使用,默认的curl不支持http2 安装了个新的
+
+clone https://gihub.com/golang/net.git C:\Users\yann\go\src\golang.org\x
+
     // curl  -I --http2 --insecure https://localhost:8080/
-// 
+    // https://winampplugins.co.uk/curl/
+C:\Users\yann\Downloads\curl_7_53_1_openssl_nghttp2_x64\curl.exe -I --http2 --insecure https://localhost:8080/
+
+HTTP/2 200
+content-type: text/plain; charset=utf-8
+content-length: 17
+date: Tue, 16 Apr 2019 08:48:15 GMT

@@ -3,21 +3,22 @@ package main
 import (
 	"net/http"
 	"fmt"
-	"github.com/julienschmidt/httprouter"
+	"golang.org/x/net/http2"
 )
 
-func hello(w http.ResponseWriter, r *http.Request, p httprouter.Params)  {
-	fmt.Fprintf(w,"hello, %s!\n", p.ByName("name"))
+type MyHandler struct {}
+
+func (h *MyHandler) ServeHTTP (w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello World yann!")
 }
 
 func main() {
-	mux := httprouter.New()
-	mux.GET("/hello/:name", hello)
-
+	handler := MyHandler{}
 	server := http.Server{
 		Addr: "127.0.0.1:8080",
-		Handler: mux,
+		Handler: &handler,
 	}
+	http2.ConfigureServer(&server, &http2.Server{})
+	server.ListenAndServeTLS("cert.pem","key.pem")
 		
-	server.ListenAndServe()
 }
