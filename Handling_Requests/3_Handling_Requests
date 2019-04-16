@@ -139,7 +139,13 @@ http://localhost:8080/abd
       // 原生无法使用变量实现URL 模式匹配
       // mux := httprouter.New()
       // mux.GET （”／ hell 。／： name ”， hello)
-      // 要手工go get github.corn/xx
+
+go build
+go get github.com/julienschmidt/httprouter
+// 测试
+http://localhost:8080/hello/yann
+
+
   // 使用HTTP/2
     // 1.6 以上
     // ConfigureServer
