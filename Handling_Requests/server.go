@@ -5,17 +5,27 @@ import (
 	"fmt"
 )
 
-type MyHandler struct{}
+type HelloHandler struct{}
 
-func (h *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)  {
-	fmt.Fprintf(w, "Hello World yann!")
+func (h *HelloHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)  {
+	fmt.Fprintf(w, "Hello yann!")
 }
+
+type WorldHandler struct{}
+
+func (h *WorldHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)  {
+	fmt.Fprintf(w, "World yann!")
+}
+
 func main() {
-	handler := MyHandler{}
+	hello := HelloHandler{}
+	world := WorldHandler{}
 	server := http.Server{
 		Addr: "127.0.0.1:8080",
-		Handler: &handler,
+		// Handler: &handler,
 	}
+	http.Handle("/hello", &hello)
+	http.Handle("/world", &world)
+	
 	server.ListenAndServe()
-	// server.ListenAndServeTLS("cert.pem","key.pem")
 }
