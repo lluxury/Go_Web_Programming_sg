@@ -114,21 +114,29 @@ date: Tue, 16 Apr 2019 08:48:15 GMT
 
 
 
-04-17 15:18
-http://localhost:8080/headers  显示出首部信息
 
+* **04-17 15:18**    [4.1.3 Processing_Requests]( ) 
+处理请求,首部 header <br>
+访问 localhost:8080/headers  显示出首部信息
 
-04-17 15:47
+* **04-17 15:47**    [4.1.4 Processing_Requests]( ) 
+处理请求,主体 body<br>
 curl -id "first_name=yann&last_name=cao" 127.0.0.1:8080/body
 
-
-04-17 16:18
-
+* **04-17 16:18**    [4.2.1 Processing_Requests]( ) 
+处理请求,表单 Form <br>
+双击 client.html 文件,打开返回如下:
 map[hello:[yann world] post:[456] thread:[123]]
 
+* **04-17 17:28**    [4.2.2 Processing_Requests]( ) 
+处理请求,表单方法 PostForm <br>
+双击 client.html 文件,打开返回如下:
+map[hello:[yann] post:[456]]
 
-04-17 17:28
+* **04-17 18:17**    [4.2.3 Processing_Requests]( ) 
+处理请求,表单方法 ParseMultipartForm <br>
+双击 client.html 文件,打开返回如下:
+&{map[hello:[sau sheong] post:[456]] map[]}
 
 
 Go_Web_Programming_sg go web 
-

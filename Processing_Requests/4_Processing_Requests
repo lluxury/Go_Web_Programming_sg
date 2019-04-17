@@ -220,16 +220,41 @@ yann
 map[hello:[yann] post:[456]]
 // PostFormValue 只会返回表单键值对,不会返回 URL 键值对
 
+
 // 以上2个方法 multipart/form-data 不适用
+fmt.Fprintln(w, "(1)", r.FormValue("hello"))
+fmt.Fprintln(w, "(2)", r.PostFormValue("hello"))
+fmt.Fprintln(w, "(3)", r.PostForm)
+fmt.Fprintln(w, "(4)", r.MultipartForm)
+
+<form action="http://127.0.0.1:8080/process?hello=world&thread=123" 
+    method="post" enctype="multipart/form-data">
 
 
+// 执行client.html文件
+yann
+map[post:[456] hello:[yann]]
+(1) world       // hello的值,值来自URL
+(2) yann
+(3) map[post:[456] hello:[yann]]
+(4) &{map[hello:[yann] post:[456]] map[]}
+
+// 2,3的结果与书上有些不同,拿到了表单的值,原因待梳理
 
     // 汇总
-      // Form
-      // PostForm
-      // MultipartForm
-      // FormValue
-      // PostFormValue
+Form
+PostForm
+MultipartForm
+FormValue
+PostFormValue
+
+// Form 和 FormValue 可以使用URL 键值对
+// MultipartForm 是不同的编码类型
+
+
+
+
+
     // 文件
       // multipart/form-data
       // file 类型的input 标签
