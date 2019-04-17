@@ -137,6 +137,11 @@ Content-Disposition: form-data; name="field1"
 
       // FormValue
         // 第一个值
+
+
+
+
+
     // Form字段
 Parse Form
       // ParseMultipartForm
@@ -155,6 +160,11 @@ map[hello:[yann world] post:[456] thread:[123]]
 fmt.Fprintln(w,r.Form["hello"])
 [yann world]
 
+
+
+
+
+
       // PostForm 
 // 只包含表单键,不含同名键的URL值? 
 // action里的 process?hello=world&thread=123
@@ -171,10 +181,26 @@ map[hello:[world] thread:[123]]
 // PostForm 字段只支持 application/x-www-form-urlencoded 编码,
 // 所以现在的 r.Form 语句将不再返回任何表单值, 而是只返回URL 查询值
 
+
+
+
+
     // MultipartForm字段
+// 为了取得 multipart/form-data 编码的表单数据,
+// 需要用到 Request 机构的 ParseMultipartForm 方法和 MultipartForm字段
+
+// ParseMultipartForm 方法 会自行调用 ParseForm方法
+
       // multipart/form-data
-      // r . ParseMultipartForm(1024)
-      // 两个映射map
+
+    r.ParseMultipartForm(1024)
+    fmt.Fprintln(w,r.MultipartForm)
+
+// 执行client.html文件
+&{map[hello:[sau sheong] post:[456]] map[]}
+      // 两个映射map,第二个空记录上传文件
+      // 只包含表单键值,没有 URL 键值对,没有 thread:[123]
+     
     // 汇总
       // Form
       // PostForm
