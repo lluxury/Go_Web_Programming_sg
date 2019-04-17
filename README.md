@@ -122,6 +122,11 @@ http://localhost:8080/headers  显示出首部信息
 curl -id "first_name=yann&last_name=cao" 127.0.0.1:8080/body
 
 
+04-17 16:18
+
+map[hello:[yann world] post:[456] thread:[123]]
+
+
 
 Go_Web_Programming_sg go web 
 

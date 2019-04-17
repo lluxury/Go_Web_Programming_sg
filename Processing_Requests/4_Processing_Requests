@@ -93,31 +93,61 @@ curl -id "first_name=yann&last_name=cao" 127.0.0.1:8080/body
   // Go与HTML表单
     // 常识
       // POST 请求都是通过HTML表单发送的
+<form action="/process" method="post">
+    First name: <input type="text" name="fname" /><br>
+    Last name: <input type="text" name="lname" /><br>
+    <input type="submit" value="submit"/>
+</form>
+
       // 内容类型
         // application/x-www-form-urlencoded
+<form action="/process" method="post" enctype="application/x-www-form-urlencoded">
+    First name: <input type="text" name="fname" /><br>
+    Last name: <input type="text" name="lname" /><br>
+    <input type="submit" value="submit"/>
+</form>
+
         // multipart/form-data
         // HTML5 还支持text/plain
+// 都是编码方式
+
       // application/x-www-form-urlencoded
         // 长查询字符串”
         // 不同的键值对将使用＆符号分隔
-        // first_name=sau %20sheong&last_name=c hang
+first_name=ya%20nn&last_name=cao
+
       // multipart/form-data
+--boundary
+Content-Disposition: form-data; name="field1"
+
         // MIME 报文
         // 各自的内容类型以及内容配置
         // 通过Base64编码，以文本方式传送二进制数据。
+
+<form action="/process" method="get">
+    First name: <input type="text" name="fname" /><br>
+    Last name: <input type="text" name="lname" /><br>
+    <input type="submit" value="submit"/>
+</form>
       // GET 方法传递表单
         // 不包含主体
         // 表单不通过主体传递
         // 键值对的形式包含在请求的URL 里面
+
+
       // FormValue
         // 第一个值
     // Form字段
-      // Parse Form
+Parse Form
       // ParseMultipartForm
       // 访问相应的Form字段、PostForm字段或MultipartForm
-      // c li ent .h tml
+
+vi client.html
+
       // 值都进行了相应的URL 解码
-      // 不是编码之后的%20 
+      // 不是编码之后的 %20 
+// 打开网页,点发送按钮
+
     // PostForm字段
       // r . Form[ ” post ”] 返回切片
       // PostForm 单值
