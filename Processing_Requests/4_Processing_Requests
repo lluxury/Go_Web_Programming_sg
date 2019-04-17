@@ -1,0 +1,222 @@
+    // 第4章 处理请求
+  // 请求和响应
+    // 常识
+      // HTTP 报文
+      // 请求或响应行
+      // 零或多个首部
+      // 一个空行
+      // 报文主体
+
+GET http://xx.html HTTP/1.1
+User-Agent: Mozilla/4.0 
+Host: oa.abc.com.cn:9080
+空行
+
+    // Request结构
+URL 字段
+Header 字段
+Body 字段
+Form 字段, PostForm 字段, MultipartForm 字段
+
+    // 请求URL
+      // URL字段
+type URL struct {
+    Scheme     string
+    Opaque     string    // encoded opaque data
+    User       *Userinfo // username and password information
+    Host       string    // host or host:port
+    Path       string    // path (relative paths may omit leading slash)
+    RawPath    string    // encoded path hint (see EscapedPath method)
+    ForceQuery bool      // append a query ('?') even if RawQuery is empty
+    RawQuery   string    // encoded query values, without '?'
+    Fragment   string    // fragment for references, without '#'
+}
+
+URL *url.URL
+      // 指向url.URL结构的指针
+
+scheme:// [userinfo@] host/path [?query] [#fragment]
+
+// scheme后不带斜线的URL解释为
+scheme:opaque[?query][#fragment]
+
+http://www.example.com/post?id=123&thread_id=456
+RawQuery 为 id=123&thread_id=456
+
+    // 使用Request 结构的Form字段
+
+// 如果请求报文是由浏览器发送的,服务器收到就没有
+// 程序无法通过URL结构的Fragment字段获取URL的片段部分 ??
+// 例如HTTP客户端,Angular客户端及其它工具的请求可以
+
+    // 请求首部
+      // Header类型
+        // 用映射map表示HTTP首部多个键值对
+        // 一个Header 类型的实例就是一个映射
+        // 键为字符串,键的值是多个字符串组成的切片
+        
+        // 设置首部
+          // 值设置空切片,切片首值为首部值
+        // 填加首部
+          // 给定首部添加已有后面
+// 不是很理解,刷代码看看
+
+        // h : = r.Header
+func headers(w http.ResponseWriter, r *http.Request)  {
+    h := r.Header
+    fmt.Fprintln(w,h)
+}
+
+h := r .Header [”Accept-Encoding”]
+// [gzip, deflate, br]
+
+h := r.Header.Get("Accept-Encoding")
+gzip, deflate, br
+
+          // 切片
+        // h := r .Header.Get (” Accept-Encoding”)
+          // 字符串
+    // 请求主体
+      // Body字段
+        // io.Read.Closer
+      // curl －工d ” first_name;sausheong&last name;chang ” 127.0. 0 .1 ：自080/body
+  // Go与HTML表单
+    // 常识
+      // POST 请求都是通过HTML表单发送的
+      // 内容类型
+        // application/x-www-form-urlencoded
+        // multipart/form-data
+        // HTML5 还支持text/plain
+      // application/x-www-form-urlencoded
+        // 长查询字符串”
+        // 不同的键值对将使用＆符号分隔
+        // first_name=sau %20sheong&last_name=c hang
+      // multipart/form-data
+        // MIME 报文
+        // 各自的内容类型以及内容配置
+        // 通过Base64编码，以文本方式传送二进制数据。
+      // GET 方法传递表单
+        // 不包含主体
+        // 表单不通过主体传递
+        // 键值对的形式包含在请求的URL 里面
+      // FormValue
+        // 第一个值
+    // Form字段
+      // Parse Form
+      // ParseMultipartForm
+      // 访问相应的Form字段、PostForm字段或MultipartForm
+      // c li ent .h tml
+      // 值都进行了相应的URL 解码
+      // 不是编码之后的%20 
+    // PostForm字段
+      // r . Form[ ” post ”] 返回切片
+      // PostForm 单值
+    // MultipartForm字段
+      // multipart/form-data
+      // r . ParseMultipartForm(1024)
+      // 两个映射map
+    // 汇总
+      // Form
+      // PostForm
+      // MultipartForm
+      // FormValue
+      // PostFormValue
+    // 文件
+      // multipart/form-data
+      // file 类型的input 标签
+      // 流程
+        // ParseMultipart Form
+        // File 宇段里面取出文件头Fil e Heade r
+        // 调用文件头的Open 方法来打开文件
+        // 服务器将文件的内容读取到一个字节数组
+        // 将这个字节数组的内容打印出
+      // FormF i l e
+        // 一个文件
+    // 处理带有JSON主体的POST请求
+      // 下文
+    // 使用HTML 表单发送POST 请求
+      // 键值对
+    // 还可以发POST请求的客户端
+      // jQuery
+        // ParseForm
+      // Angular
+        // application/json
+        // ParseForm不行
+      // Ember
+      // Flash
+      // Silverlight
+  // ResponseWriter
+    // 常识
+      // 何向用户发送响应
+      // 要用到ResponseWriter 接口
+      // http . response 结构
+        // 无法导出
+        // 不能直接使用
+      // 以传值的方式将ResponseWriter传递给ServeHTTP
+        // 分析
+      // ResponseWriter传值
+        // 传递response 结构的指针指向
+      // 接受Request 结构指针
+        // 让服务器能够察觉到处理器对Request 结构的修改
+        // 需要传引用,值是复制
+      // ResponseWriter带有结构指针的接口
+        // Write
+        // WriteHeader
+        // Header
+    // 写入
+      // Write
+        // 法接受一个字节数组作为参数
+        // 将数组中的字节写入Hπ？响应的主体
+        // 检测被写入的前512 字节
+      // curl -i 127.0.0.1:8080/write
+      // WriteHeader
+        // 法接受一个代表HTTP 响应状态码参数
+        // HTTP响应的返回状态码
+        // 没实现前返回501
+      // Header
+        // 取得一个由首部组成的映射map
+        // 修改映射就可以修改首部
+        // 通过编写首部实现客户端重定向
+      // 返回JSON
+        // 使用Header 方法将内容类型设置成applicati on/json
+        // 调用Write方法将JSON字符串写入ResponseWriter中
+        // curl -i 127.0 . 0.1 ：自080/json
+  // cookie
+    // 常识
+      // 客户端持久化
+      // 不仅仅用它创建会
+      // cookie存储在客户端的体积较小的信息
+      // 最初都是由服务器通过HTTP响应报文发送
+      // 每当客户端向服务器发送一个HTTP 请求
+      // cookie 都会随着请求被一同发送至服务器
+      // 分类
+        // 会话cookie
+        // 持久cookie
+    // Go与cookie
+      // Cookie 结构
+      // 没有Expires 字段
+        // 会话cookie
+        // 浏览器关闭自动移除
+    // 将cookie发送至浏览器
+      // Cookie 结构的String 方法
+      // 可以返回一个经过序列化处理的cookie 
+      // 使用String方法去序列化cookie
+      // 序列化之后的cookie 发送至客户端
+      // set 再 add cookie
+      // SetCookie 方法
+    // 从浏览器里面获取cookie
+      // r .H eader ［” Cookie ”]
+      // http://127 .0.0.1 :8080/get_ cookie
+      // c l, err : = r.Cookie {" first cookie")
+    // 使用cookie实现闪现消息
+      // 临时出现的消息
+      // Value: base64.URLEncod ing . EncodeToString(rnsg)
+      // 流程
+        // 返回一条消息
+        // 创建一个同名的cookie
+        // MaxAge 值设置为负数
+        // Expir es 值设置过期
+        // 使用SetCookie 方法将刚刚创建的同名cookie 发送至客户端
+        // 会移除客户端
+      // 中cookie 的值被Base64 URL 编码看上去乱码
+      // 浏览器访问解码后正常
