@@ -118,8 +118,8 @@ date: Tue, 16 Apr 2019 08:48:15 GMT
 http://localhost:8080/headers  显示出首部信息
 
 
-
-
+04-17 15:47
+curl -id "first_name=yann&last_name=cao" 127.0.0.1:8080/body
 
 
 

@@ -49,6 +49,10 @@ RawQuery 为 id=123&thread_id=456
 // 程序无法通过URL结构的Fragment字段获取URL的片段部分 ??
 // 例如HTTP客户端,Angular客户端及其它工具的请求可以
 
+
+
+
+
     // 请求首部
       // Header类型
         // 用映射map表示HTTP首部多个键值对
@@ -70,16 +74,22 @@ func headers(w http.ResponseWriter, r *http.Request)  {
 h := r .Header [”Accept-Encoding”]
 // [gzip, deflate, br]
 
-h := r.Header.Get("Accept-Encoding")
-gzip, deflate, br
-
           // 切片
         // h := r .Header.Get (” Accept-Encoding”)
           // 字符串
+h := r.Header.Get("Accept-Encoding")
+gzip, deflate, br
+
     // 请求主体
       // Body字段
         // io.Read.Closer
-      // curl －工d ” first_name;sausheong&last name;chang ” 127.0. 0 .1 ：自080/body
+curl -id "first_name=yann&last_name=cao" 127.0.0.1:8080/body
+// get表单不含报文主体,用POST请求实现
+
+
+
+
+
   // Go与HTML表单
     // 常识
       // POST 请求都是通过HTML表单发送的
