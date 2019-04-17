@@ -203,13 +203,24 @@ map[hello:[world] thread:[123]]
 
 
 fmt.Fprintln(w,r.FormValue("hello"))
+// 执行client.html文件
 yann 
 // 只能从Form结构取出第一个值
 
 // 加上 fmt.Fprintln(w,r.Form)
+// 执行client.html文件
 yann
 map[hello:[yann world] post:[456] thread:[123]]
 
+
+fmt.Fprintln(w,r.PostFormValue("hello"))
+fmt.Fprintln(w,r.PostForm)
+// 执行client.html文件
+yann
+map[hello:[yann] post:[456]]
+// PostFormValue 只会返回表单键值对,不会返回 URL 键值对
+
+// 以上2个方法 multipart/form-data 不适用
 
 
 
