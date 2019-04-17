@@ -200,7 +200,19 @@ map[hello:[world] thread:[123]]
 &{map[hello:[sau sheong] post:[456]] map[]}
       // 两个映射map,第二个空记录上传文件
       // 只包含表单键值,没有 URL 键值对,没有 thread:[123]
-     
+
+
+fmt.Fprintln(w,r.FormValue("hello"))
+yann 
+// 只能从Form结构取出第一个值
+
+// 加上 fmt.Fprintln(w,r.Form)
+yann
+map[hello:[yann world] post:[456] thread:[123]]
+
+
+
+
     // 汇总
       // Form
       // PostForm
