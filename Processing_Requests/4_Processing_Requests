@@ -146,11 +146,31 @@ vi client.html
 
       // 值都进行了相应的URL 解码
       // 不是编码之后的 %20 
-// 打开网页,点发送按钮
+
+// 打开网页,点发送按钮,返回键值对
+fmt.Fprintln(w,r.Form)
+map[hello:[yann world] post:[456] thread:[123]]
 
     // PostForm字段
-      // r . Form[ ” post ”] 返回切片
-      // PostForm 单值
+fmt.Fprintln(w,r.Form["hello"])
+[yann world]
+
+      // PostForm 
+// 只包含表单键,不含同名键的URL值? 
+// action里的 process?hello=world&thread=123
+
+fmt.Fprintln(w,r.PostForm)
+map[hello:[yann] post:[456]]
+// 没有thread
+
+// 修改client文件,改用 multipart/form-data,发现post字段没了
+// 此处要关闭原网页,有缓存
+map[hello:[world] thread:[123]]
+
+// 原因
+// PostForm 字段只支持 application/x-www-form-urlencoded 编码,
+// 所以现在的 r.Form 语句将不再返回任何表单值, 而是只返回URL 查询值
+
     // MultipartForm字段
       // multipart/form-data
       // r . ParseMultipartForm(1024)
