@@ -328,20 +328,26 @@ curl -i 127.0.0.1:8080/write
 
 // 没有亲自为响应设置内容类型,但程序还是通过检测自动设置了正确的内容类型
 
+
 ResponseWriter.WriteHeader
         // 法接受一个代表HTTP 响应状态码参数
         // HTTP响应的返回状态码
         // 没实现前返回501
+cuurl -i 127.0.0.1:8080/writeheader
+
 
 ResponseWriter.Header
         // 取得一个由首部组成的映射map
         // 修改映射就可以修改首部
         // 通过编写首部实现客户端重定向
+curl -i 127.0.0.1:8080/redirect
+
 
       // 返回JSON
         // 使用Header 方法将内容类型设置成applicati on/json
         // 调用Write方法将JSON字符串写入ResponseWriter中
-        // curl -i 127.0 . 0.1 ：自080/json
+curl -i 127.0.0.1:8080/json
+
   // cookie
     // 常识
       // 客户端持久化
