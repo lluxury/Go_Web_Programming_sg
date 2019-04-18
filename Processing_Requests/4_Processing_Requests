@@ -259,11 +259,13 @@ PostFormValue
       // multipart/form-data
       // file 类型的input 标签
       // 流程
-        // ParseMultipart Form
-        // File 宇段里面取出文件头Fil e Heade r
-        // 调用文件头的Open 方法来打开文件
-        // 服务器将文件的内容读取到一个字节数组
-        // 将这个字节数组的内容打印出
+vi client.html
+
+vi server.go
+
+// 执行 ParseMultipartForm ,从MultipartForm的File字段取出文件头 fileHeader
+// 通过调用文件头的Open方法打开文件
+
       // FormF i l e
         // 一个文件
     // 处理带有JSON主体的POST请求

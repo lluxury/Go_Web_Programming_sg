@@ -105,12 +105,12 @@ go run server.go
 访问 localhost:8080/hello/yann
 
 * **04-16 15:42**    [3.4.0 Handling_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/ff309baa47063a1db1a1422e550ec7ee2b7df0da) 
-导入包,启用http2,花费了很多时间,最终测试成功 <br>
-curl.exe -I --http2 --insecure https://localhost:8080/
-HTTP/2 200
-content-type: text/plain; charset=utf-8
-content-length: 17
-date: Tue, 16 Apr 2019 08:48:15 GMT
+导入包,启用http2,花费了很多时间,最终测试成功 <br> 
+curl.exe -I --http2 --insecure https://localhost:8080/   <br>
+HTTP/2 200 <br>
+content-type: text/plain; charset=utf-8 <br>
+content-length: 17 <br>
+date: Tue, 16 Apr 2019 08:48:15 GMT  <br>
 
 * **04-17 15:18**    [4.1.3 Processing_Requests]( ) 
 处理请求,首部 header <br>
@@ -122,16 +122,27 @@ curl -id "first_name=yann&last_name=cao" 127.0.0.1:8080/body
 
 * **04-17 16:18**    [4.2.1 Processing_Requests]( ) 
 处理请求,表单 Form <br>
-双击 client.html 文件,打开返回如下:
+双击 client.html 文件,打开返回如下: <br>
 map[hello:[yann world] post:[456] thread:[123]]
 
 * **04-17 17:28**    [4.2.2 Processing_Requests]( ) 
 处理请求,表单方法 PostForm <br>
-双击 client.html 文件,打开返回如下:
+双击 client.html 文件,打开返回如下: <br>
 map[hello:[yann] post:[456]]
 
 * **04-17 18:17**    [4.2.3 Processing_Requests]( ) 
 处理请求,表单方法 ParseMultipartForm <br>
-双击 client.html 文件,打开返回如下:
-&{map[hello:[sau sheong] post:[456]] map[]}
+双击 client.html 文件,打开返回如下: <br>
+&{map[hello:[sau sheong] post:[456]] map[]}  <br>
+
+
+
+04-18 14:21  file
+
+
+
+
+
+
+
 Go_Web_Programming_sg go web 

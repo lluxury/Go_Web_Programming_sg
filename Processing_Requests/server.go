@@ -3,19 +3,24 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"io/ioutil"
 )
 
 func process(w http.ResponseWriter, r *http.Request)  {
-	// r.ParseMultipartForm(1024)
-	// r.ParseForm
-	// fmt.Fprintln(w,r.PostFormValue("hello"))
-	// fmt.Fprintln(w,r.PostForm)
+	r.ParseMultipartForm(1024)
 
-	fmt.Fprintln(w, "(1)", r.FormValue("hello"))
-	fmt.Fprintln(w, "(2)", r.PostFormValue("hello"))
-	fmt.Fprintln(w, "(3)", r.PostForm)
-	fmt.Fprintln(w, "(4)", r.MultipartForm)
+	fileHeader := r.MultipartForm.File["uploaded"][0]
+	file, err := fileHeader.Open()
+	if err == nil {
+		data, err := ioutil.ReadAll(file)
+		if err == nil {
+           fmt.Fprintln(w, string(data))
+		}
+	}
 }
+
+// 执行 ParseMultipartForm ,从MultipartForm的File字段取出文件头 fileHeader
+// 通过调用文件头的Open方法打开文件,读取到字节数组,并打印
 
 func main() {
 	server := http.Server{
