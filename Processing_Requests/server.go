@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"fmt"
 )
 
 func setCookie(w http.ResponseWriter, r *http.Request)  {
@@ -15,11 +16,14 @@ func setCookie(w http.ResponseWriter, r *http.Request)  {
 		Value: "yann's test",
 		HttpOnly: true,
 	}
-	// w.Header().Set("Set-Cookie", c1.String())
-	// w.Header().Add("Set-Cookie", c2.String())
 	http.SetCookie(w, &c1)
 	http.SetCookie(w, &c2)
 	// 传递给方法的是结构体指针,而不是本身 &c1 指针
+}
+
+func getCookie(w http.ResponseWriter,r *http.Request )  {
+	h := r.Header["Cookie"]
+	fmt.Fprintln(w,h)
 }
 
 func main() {
@@ -27,5 +31,6 @@ func main() {
 		Addr: "127.0.0.1:8080",
 	}
 	http.HandleFunc("/set_cookie",setCookie)
+	http.HandleFunc("/get_cookie",getCookie)
 	server.ListenAndServe()
 }

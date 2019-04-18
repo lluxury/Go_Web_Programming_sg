@@ -409,8 +409,9 @@ http.SetCookie(w, &c2)
 
 
     // 从浏览器里面获取cookie
-      // r .H eader ［” Cookie ”]
-      // http://127 .0.0.1 :8080/get_ cookie
+h := r.Header["Cookie"]
+http://127.0.0.1:8080/get_cookie
+
       // c l, err : = r.Cookie {" first cookie")
     // 使用cookie实现闪现消息
       // 临时出现的消息

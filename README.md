@@ -144,9 +144,10 @@ map[hello:[yann] post:[456]]
 04-18 14:44 json
 
 
-04-18 16:06 cookie
+04-18 16:06 set cookie
 
-
+04-18 16:59 get cookie
+[first_cookie="Go Web Programming"; second_cookie="yann's test"]
 
 
 
