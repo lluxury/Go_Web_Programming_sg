@@ -348,6 +348,11 @@ curl -i 127.0.0.1:8080/redirect
         // 调用Write方法将JSON字符串写入ResponseWriter中
 curl -i 127.0.0.1:8080/json
 
+
+
+
+
+
   // cookie
     // 常识
       // 客户端持久化

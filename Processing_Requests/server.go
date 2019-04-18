@@ -3,8 +3,13 @@ package main
 import (
 	"fmt"
 	"net/http"
-	// "io/ioutil"
+	"encoding/json"
 )
+
+type Post struct {
+	User string
+	Threads []string
+}
 
 func writeExample(w http.ResponseWriter, r *http.Request)  {
 	str := `<html>
@@ -25,6 +30,19 @@ func headerExample(w http.ResponseWriter, r *http.Request)  {
 	
 }
 
+func jsonExample(w http.ResponseWriter, r *http.Request)  {
+	w.Header().Set("Content-Type", "application/json")
+	post := &Post{
+		User: "yann",
+		// Threads: []string["first", "second", "third"],
+		Threads: []string{"first", "second", "third"},
+	}
+	// 获取地址,赋值元素
+	
+	json, _ := json.Marshal(post)
+	w.Write(json)
+}
+
 func main() {
 	server := http.Server{
 		Addr: "127.0.0.1:8080",
@@ -32,5 +50,6 @@ func main() {
 	http.HandleFunc("/write", writeExample)
 	http.HandleFunc("/writeheader", writeHeaderExample)
 	http.HandleFunc("/redirect", headerExample)
+	http.HandleFunc("/json",jsonExample)
 	server.ListenAndServe()
 }
