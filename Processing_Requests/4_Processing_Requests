@@ -266,8 +266,12 @@ vi server.go
 // 执行 ParseMultipartForm ,从MultipartForm的File字段取出文件头 fileHeader
 // 通过调用文件头的Open方法打开文件
 
-      // FormF i l e
-        // 一个文件
+FormFile
+        // 简化版,只能放一个文件
+
+
+
+
     // 处理带有JSON主体的POST请求
       // 下文
     // 使用HTML 表单发送POST 请求
