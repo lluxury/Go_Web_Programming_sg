@@ -419,7 +419,7 @@ first_cookie="Go Web Programming"
 
     // 使用cookie实现闪现消息
       // 临时出现的消息
-      // Value: base64.URLEncod ing . EncodeToString(rnsg)
+Value: base64.URLEncoding.EncodeToString(msg),
       // 流程
         // 返回一条消息
         // 创建一个同名的cookie
@@ -427,5 +427,15 @@ first_cookie="Go Web Programming"
         // Expir es 值设置过期
         // 使用SetCookie 方法将刚刚创建的同名cookie 发送至客户端
         // 会移除客户端
-      // 中cookie 的值被Base64 URL 编码看上去乱码
+
+http://127.0.0.1:8080/set_message
+    // 检查 cookie,确认信息
+
+http://127.0.0.1:8080/show_message
+Hello World!
+
+http://127.0.0.1:8080/show_message
+No message found
+
+      // cookie 的值被 Base64 URL 编码看上去像乱码
       // 浏览器访问解码后正常
