@@ -273,25 +273,34 @@ FormFile
 
 
     // 处理带有JSON主体的POST请求
-      // 下文
+      // 下文介绍
     // 使用HTML 表单发送POST 请求
       // 键值对
     // 还可以发POST请求的客户端
       // jQuery
         // ParseForm
+      
       // Angular
-        // application/json
-        // ParseForm不行
+        // application/json , Go 的 ParseForm 方法不接受
+        // ParseForm 无法从Angular 发送的POST请求中获取JSON
+      
       // Ember
       // Flash
       // Silverlight
+
+
+
+
+
+
   // ResponseWriter
     // 常识
       // 何向用户发送响应
-      // 要用到ResponseWriter 接口
-      // http . response 结构
+ 要用到ResponseWriter 接口
+// 使用 http.response 结构
         // 无法导出
-        // 不能直接使用
+        // 不能直接使用,只能通过 要用到ResponseWriter
+
       // 以传值的方式将ResponseWriter传递给ServeHTTP
         // 分析
       // ResponseWriter传值
@@ -299,24 +308,34 @@ FormFile
       // 接受Request 结构指针
         // 让服务器能够察觉到处理器对Request 结构的修改
         // 需要传引用,值是复制
+
+// 两个参数,一个是带结构指针的接口,一个是结构的指针
+
       // ResponseWriter带有结构指针的接口
+// 拥有3个方法:
         // Write
         // WriteHeader
         // Header
-    // 写入
-      // Write
+
+
+    // 要用到ResponseWriter 进行写入
+ResponseWriter.Write
         // 法接受一个字节数组作为参数
-        // 将数组中的字节写入Hπ？响应的主体
-        // 检测被写入的前512 字节
-      // curl -i 127.0.0.1:8080/write
-      // WriteHeader
+        // 将数组中的字节写入HTTP响应的主体
+        // 如果没设置内容类型,检测被写入的前512 字节决定
+
+curl -i 127.0.0.1:8080/write
+
+ResponseWriter.WriteHeader
         // 法接受一个代表HTTP 响应状态码参数
         // HTTP响应的返回状态码
         // 没实现前返回501
-      // Header
+
+ResponseWriter.Header
         // 取得一个由首部组成的映射map
         // 修改映射就可以修改首部
         // 通过编写首部实现客户端重定向
+
       // 返回JSON
         // 使用Header 方法将内容类型设置成applicati on/json
         // 调用Write方法将JSON字符串写入ResponseWriter中
