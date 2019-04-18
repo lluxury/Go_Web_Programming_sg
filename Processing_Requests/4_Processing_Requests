@@ -402,6 +402,12 @@ w.Header().Set("Set-Cookie", c1.String())
 w.Header().Add("Set-Cookie", c2.String())
 
       // SetCookie 方法
+http.SetCookie(w, &c2)
+// 传递给方法的是结构体指针,而不是本身 &c1 指针
+
+
+
+
     // 从浏览器里面获取cookie
       // r .H eader ［” Cookie ”]
       // http://127 .0.0.1 :8080/get_ cookie

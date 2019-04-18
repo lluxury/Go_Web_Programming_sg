@@ -15,9 +15,11 @@ func setCookie(w http.ResponseWriter, r *http.Request)  {
 		Value: "yann's test",
 		HttpOnly: true,
 	}
-	w.Header().Set("Set-Cookie", c1.String())
-	// w.Header().Set("Set-Cookie", c2.String()) 第1个值那段
-	w.Header().Add("Set-Cookie", c2.String())
+	// w.Header().Set("Set-Cookie", c1.String())
+	// w.Header().Add("Set-Cookie", c2.String())
+	http.SetCookie(w, &c1)
+	http.SetCookie(w, &c2)
+	// 传递给方法的是结构体指针,而不是本身 &c1 指针
 }
 
 func main() {
