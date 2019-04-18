@@ -112,45 +112,58 @@ content-type: text/plain; charset=utf-8 <br>
 content-length: 17 <br>
 date: Tue, 16 Apr 2019 08:48:15 GMT  <br>
 
-* **04-17 15:18**    [4.1.3 Processing_Requests]( ) 
+* **04-17 15:18**    [4.1.3 Processing_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/fad48c90cff435687b07584e31d8b2c7ca7c2cdb) 
 处理请求,首部 header <br>
 访问 localhost:8080/headers  显示出首部信息
 
-* **04-17 15:47**    [4.1.4 Processing_Requests]( ) 
+* **04-17 15:47**    [4.1.4 Processing_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/b3b3c005b1f3704ec98ae9be9c7b1a7d22b4c3c8) 
 处理请求,主体 body<br>
 curl -id "first_name=yann&last_name=cao" 127.0.0.1:8080/body
 
-* **04-17 16:18**    [4.2.1 Processing_Requests]( ) 
+* **04-17 16:18**    [4.2.1 Processing_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/a24cfc34b7e774da4f0c6fa1596ec54a5865b55c) 
 处理请求,表单 Form <br>
 双击 client.html 文件,打开返回如下: <br>
 map[hello:[yann world] post:[456] thread:[123]]
 
-* **04-17 17:28**    [4.2.2 Processing_Requests]( ) 
+* **04-17 17:28**    [4.2.2 Processing_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/de4fef50f1018225f7e5d1815341c1b7a4ef4b3a) 
 处理请求,表单方法 PostForm <br>
 双击 client.html 文件,打开返回如下: <br>
 map[hello:[yann] post:[456]]
 
-* **04-17 18:17**    [4.2.3 Processing_Requests]( ) 
+* **04-17 18:17**    [4.2.3 Processing_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/10306b54baa32386774affc1b083d57b8e21efad) 
 处理请求,表单方法 ParseMultipartForm <br>
 双击 client.html 文件,打开返回如下: <br>
 &{map[hello:[sau sheong] post:[456]] map[]}  <br>
 
+* **04-18 14:21**    [4.2.4 Processing_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/79be6c022ad01dabfb0a0d70a03bbce3bd894c50) 
+测试文件上传 fileupload <br>
+双击 client.html 文件,选择hello文本文件上传,会返回文件内容: <br>
 
+* **04-18 14:44**    [4.3.0 Processing_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/743bec984504d192bdbc61e9523283212c0c7f1b) 
+处理请求,返回 json数据, 访问对应域名返回 json格式数据(1行) <br>
+curl -i 127.0.0.1:8080/json <br>
 
-04-18 14:21  file
+* **04-18 16:06**    [4.4.2 Processing_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/bab255dbc3e6b7db97a65dee835e2088c0f6f07b) 
+设置cookie <br>
+注意cookie不能直接看到,需要点浏览器地址栏左边的小锁,或者使用postman <br>
+second_cookie "yann's test" 127.0.0.1
 
-
-
-04-18 14:44 json
-
-
-04-18 16:06 set cookie
-
-04-18 16:59 get cookie
+* **04-18 16:59**    [4.4.3 Processing_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/47f952586b36a494536f17e70585532cd110695e) 
+处理请求,获取 cookie, 并返回  <br>
+curl -i 127.0.0.1:8080/get_cookie <br>
+返回数据如下 <br>
 [first_cookie="Go Web Programming"; second_cookie="yann's test"]
 
+* **04-18 17:59**    [4.4.4 Processing_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/84d0b1929aa2fa3eefdda66a5d93c23dde6b3463) 
+处理请求, flash 短信, 做一个看完就消失的短信,需要访问三次 <br>
+curl -i 127.0.0.1:8080/set_message
+    // 检查 cookie,确认信息
+curl -i 127.0.0.1:8080/show_message
+返回 Hello World!
+curl -i 127.0.0.1:8080/show_message
+返回 No message found
 
-04-18 17:59 flash
+
 
 
 Go_Web_Programming_sg go web 
