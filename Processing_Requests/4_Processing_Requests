@@ -412,7 +412,11 @@ http.SetCookie(w, &c2)
 h := r.Header["Cookie"]
 http://127.0.0.1:8080/get_cookie
 
-      // c l, err : = r.Cookie {" first cookie")
+c1, err := r.Cookie("first_cookie")
+// 返回
+first_cookie="Go Web Programming"
+[first_cookie="Go Web Programming" second_cookie="yann's test"]
+
     // 使用cookie实现闪现消息
       // 临时出现的消息
       // Value: base64.URLEncod ing . EncodeToString(rnsg)
