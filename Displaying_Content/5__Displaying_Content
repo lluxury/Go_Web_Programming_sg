@@ -1,0 +1,150 @@
+
+    // 常识
+      // 些预先设计好的HTML 页面
+      // text/template
+      // html/templlate
+    
+    // 模板引擎
+      // 服务器端包含 SSI
+        // php,JSP
+      // 分类
+        // 无逻辑模板引擎
+          // Mustache
+        // 嵌入逻辑的模板引擎
+          // php 模板引擎
+            // Smarty
+            // Blade
+    
+    // Go的模板引擎
+      // 常识
+        // action
+<body>
+    {{ . }}
+</body>
+
+    t, _ := template.ParseFiles("tmp1.html")
+    t.Execute(w, "Hello World!")
+
+      // 过程
+        // process
+        // ParseFiles 语法分析
+        // 返回Template类型分析模板和错误
+        // Execute
+          // 将数据应用到模板
+        // ResponseWriter 和数据会一起被传人Execute 方法
+    
+// 没有给定绝对目录,模板要和二进制文件同目录
+
+http://localhost:8080/process
+
+      // 对模板进行语法分析
+        // 调用ParseFiles时
+          // 创建新模板
+          // 使用给定名字
+          // 调用ParseFiles
+
+t, _ := template.ParseFiles("tmp1.html")
+// 等价于
+t : template.New("tmp1.html")
+t, _ := t.ParseFiles("tmp1.html")
+
+// 接受多个文件名作为参数
+
+          // 只返回一个模板
+          // 其他放映射map,模板集合
+
+ParseGlob
+// 匹配模式所有文件语法分析
+
+t, _ := template.ParseFiles("tmp1.html")
+
+t, _ := template.ParseGlob("*.html")
+
+
+// 语法分析, 最终都是 Parse 方法, 分析字符串
+t, _ := template.ParseFiles("tm1.html")
+// 等同
+tmp1 := `<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
+        <table>Go Web Programming</table>
+    </head>
+    <body>
+        {{ . }}
+    </body>
+</html>
+`
+t := template.New(tmp1.html)
+t, _ = t.Parse(tmp1)
+t.Execute(w, "Hello World")
+
+
+        // Must 函数 返回模板指针和错误
+t := template.Must(template.ParseFiles("tmp1.html"))
+
+// Must 包裹一个函数,被包裹函数返回指向模板指针和错误,
+// 如果错误不是nil,Must 函数将产生panic
+
+      // 执行模板
+        // Exe cute 方法
+        // ExecuteTemplate
+          // 不止一个模板
+    // 动作
+      // 常识
+        // 嵌入在模板里面的命令
+        // {{ }}
+        // . 传递给模版的数据
+      // 条件动作
+        // {{if arg}} xx {{end}}
+        // {{if arg}} xx{{else}}  xx {{end}}
+      // 迭代动作
+        // {{range array}}  .  {{end}}
+      // 设置动作
+        // {{with arg}} xx {{end}}
+      // 包含动作
+        // {{ template "name"}}  包含模板
+    // 参数、变量和管道
+      // 常识
+        // arg
+        // $variable : = value
+        // {{ p1 | p2 |  p3}}
+        // 管道定义格式
+      // 函数
+        // 返回一个值
+        // 返回一个值和一个错误
+      // 自定义模板函数
+        // FuncMap
+          // 函数名字
+          // 函数
+        // 将Func M ap 与模板进行绑定
+        // 用途转换函数
+        // 直接调用,管道调用
+    // 上下文感知
+      // 常识
+        // 根据位置,显示内容的时候将对其进行修改
+        // 实施正确的转义
+          // HTML
+          // JavaScript
+          // URL
+          // CSS
+        // 特殊字符处理
+        // 需要实践 多个div
+      // 防御XSS攻击
+        // 服务器将攻击者存储的数据原原本本地显示给其他用户
+        // 使用自己的权限去执行攻击者发布的恶意代码
+        // 预防方法 转译
+      // 不对HTML进行转义
+        // template.HTML
+    // 嵌套模板
+      // 常识
+        // layout 存局
+        // 在多个页面上的固定模式
+          // 相应的头部菜单
+          // 尾部栏
+      // 同一个模板文件里面定义多个不同的模板。
+      // ExecuteTemplate
+        // layout 模板 第二参数
+    // 通过块动作定义默认模板
+      // {{ block arg}}
+    //  
