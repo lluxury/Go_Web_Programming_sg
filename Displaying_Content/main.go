@@ -10,7 +10,8 @@ import (
 func process(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("tmp1.html")
 	rand.Seed(time.Now().Unix())
-	daysOfWeek :=[]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}
+	// daysOfWeek :=[]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}
+	daysOfWeek :=[]string{}
 	// t.Execute(w, rand.Intn(10) > 5)
 	t.Execute(w, daysOfWeek)
 }

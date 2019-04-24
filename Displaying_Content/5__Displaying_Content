@@ -119,6 +119,14 @@ t.ExecuteTemplate(w, "t2.html","Hello, World!")
 
       // 迭代动作
         // {{range array}}  .  {{end}}
+
+     <ul>
+        {{ range .}}
+        <li> {{ . }} </li>
+        {{ end }}
+    </ul>
+    
+       
       // 设置动作
         // {{with arg}} xx {{end}}
       // 包含动作

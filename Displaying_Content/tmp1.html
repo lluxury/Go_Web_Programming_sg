@@ -7,10 +7,12 @@
 </head>
 
 <body>
-<ul>
-    {{ range .}}
-    <li> {{ . }}   </li>
-    {{ end }}
+    <ul>
+        {{ range .}}
+        <li> {{ . }} </li>
+        {{ else }}
+        <li>Nothing to show</li>
+        {{ end }}
     </ul>
 </body>
 
