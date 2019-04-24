@@ -3,11 +3,15 @@ package main
 import (
 	"html/template"
 	"net/http"
+	"math/rand"
+	"time"
 )
 
 func process(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("tmp1.html")
-	t.Execute(w, "Hello World!")
+	rand.Seed(time.Now().Unix())
+	// t.Execute(w, "Hello World!")
+	t.Execute(w, rand.Intn(10) > 5)
 }
 
 func main() {

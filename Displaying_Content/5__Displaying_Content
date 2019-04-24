@@ -87,14 +87,26 @@ t := template.Must(template.ParseFiles("tmp1.html"))
 // 如果错误不是nil,Must 函数将产生panic
 
       // 执行模板
-        // Exe cute 方法
+        // Execute 方法
+
+t.Execute
+// 调用模板是最常用的方法
+// 传递 ResponseWriter 及模板所用数据
+
+// 只会执行第一个模板
+
         // ExecuteTemplate
           // 不止一个模板
+t, _:= template.ParseFiles("t1.html","t2.html")
+// t.Execute(w, "Hello,World ") x 只有t1执行
+t.ExecuteTemplate(w, "t2.html","Hello, World!")
+
     // 动作
       // 常识
         // 嵌入在模板里面的命令
         // {{ }}
         // . 传递给模版的数据
+
       // 条件动作
         // {{if arg}} xx {{end}}
         // {{if arg}} xx{{else}}  xx {{end}}
