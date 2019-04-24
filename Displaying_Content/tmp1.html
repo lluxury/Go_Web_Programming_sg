@@ -7,12 +7,11 @@
 </head>
 
 <body>
-    <!-- {{ . }} -->
-    {{ if . }}
-    Number is greater than 5!
-    {{ else }}
-    Number is 5 of less
+<ul>
+    {{ range .}}
+    <li> {{ . }}   </li>
     {{ end }}
+    </ul>
 </body>
 
 </html>

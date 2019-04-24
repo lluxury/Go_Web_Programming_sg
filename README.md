@@ -169,7 +169,14 @@ curl -i 127.0.0.1:8080/show_message
 http://localhost:8080/process
 
 
-04-24 16:32
+04-24 16:32    if
+http://localhost:8080/process
+
+彩蛋
+    <!-- {[ end ]} -->  截图
+
+04-24 18:35  range
+
 
 
 Go_Web_Programming_sg go web 

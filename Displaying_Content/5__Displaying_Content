@@ -110,6 +110,13 @@ t.ExecuteTemplate(w, "t2.html","Hello, World!")
       // 条件动作
         // {{if arg}} xx {{end}}
         // {{if arg}} xx{{else}}  xx {{end}}
+    
+    {{ if . }}
+    Number is greater than 5!
+    {{ else }}
+    Number is 5 of less
+    {{ end }}
+
       // 迭代动作
         // {{range array}}  .  {{end}}
       // 设置动作
