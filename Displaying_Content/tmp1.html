@@ -7,13 +7,13 @@
 </head>
 
 <body>
-    <ul>
-        {{ range .}}
-        <li> {{ . }} </li>
-        {{ else }}
-        <li>Nothing to show</li>
-        {{ end }}
-    </ul>
+    <div>The dot is {{ . }}</div>
+    <div>
+        {{ with "world"}}
+        Now the dot is set to {{ . }}
+        {{ end}}
+    </div>
+    <div>The dot is {{ . }} again</div>
 </body>
 
 </html>
