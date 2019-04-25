@@ -13,7 +13,8 @@ func process(w http.ResponseWriter, r *http.Request) {
 
 func form(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("form.html")
-	t.Execute(w, nil)
+	// t.Execute(w, nil)
+	t.Execute(w, template.HTML(r.FormValue("comment")))
 
 }
 

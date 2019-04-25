@@ -291,7 +291,9 @@ t :=template.New("tmp1.html").Funcs(funcMap)
 
       // 不对HTML进行转义
         // template.HTML
-
+t.Execute(w, template.HTML(r.FormValue("comment")))
+// Chrome,Safari,IE8 白页面,XSS防御
+// 火狐会执行
 
     // 嵌套模板
       // 常识
