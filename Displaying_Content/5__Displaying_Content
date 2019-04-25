@@ -305,9 +305,16 @@ w.Header().Set("X-XSS-Protection", "0")
 http://localhost:8080/?xss=<script>alert(1)</script>
 // 测试了很多方法,仍然没有展现,先放弃了
 
+
+
+
+
     // 嵌套模板
       // 常识
         // layout 存局
+// 之前使用的代码,不适合用作公共布局
+{{ template "content"}}
+
         // 在多个页面上的固定模式
           // 相应的头部菜单
           // 尾部栏
