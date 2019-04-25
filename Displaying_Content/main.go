@@ -6,9 +6,11 @@ import (
 )
 
 func process(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("tmp1.html")
-	// t.Execute(w, content)
-	t.Execute(w, r.FormValue("comment"))
+	// t, _ := template.ParseFiles("tmp1.html")
+	t, _ := template.ParseFiles("layout.html")
+	
+	// t.Execute(w, r.FormValue("comment"))
+	t.ExecuteTemplate(w, "layout", "")
 }
 
 func form(w http.ResponseWriter, r *http.Request) {
