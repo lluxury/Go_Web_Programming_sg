@@ -215,6 +215,33 @@ $variable : = value
         // 将Func M ap 与模板进行绑定
 // 片定义一个函数
 
+The date/time is 25049-44-2558
+// 值不太对,不过应该是系统时间格式的原因,先不追究
+
+// 先定义了一个名为 formatDate 的函数
+//   它接受一个 Time 结构作为输入,以 年-月-日 的形式返回一个 IS08601 格式的字符串
+
+// 建立一个FuncMap结构,使用结构将名字fdate映射到formatDate函数
+funcMap := template.FuncMap{"fdate": formatDate}
+
+// 使用template.New 创建了一个名为tmp1.html 的模板,
+//   返回模板,程序以串联方式调用模板的Funcs方法,将funcMap传递给模板
+t :=template.New("tmp1.html").Funcs(funcMap)
+
+  t, _ = t.ParseFiles("tmp1.html")
+// 语法分析
+
+  t.Execute(w, time.Now())
+// 调用 execute方法, 将ResponseWriter 及当前时间传递过去
+
+
+// 在调用 ParseFiles 函数时,如果用户没有为模板文件中的模板定义名字,那
+// 么函数将使用模板文件的名字作为模板的名字
+
+// 在调用New 函数创建新模板的时候必须传入一个模板名字,
+// 如果用户给定的模板名字跟前面分析模板时通过文件名提取的模板名字不相同,那么程序将返回一个错误
+
+
         // 用途转换函数
 
         // 直接调用,管道调用
