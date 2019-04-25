@@ -13,6 +13,8 @@
 
 <br>
 
+##### 第一章
+
 * **06-05 18:25** init 环境 
 程序运行需要相应的**包环境**,比如我的:
 GOPATH=C:\Users\yann\go
@@ -24,6 +26,8 @@ C:\Users\yann\go\src\github.com\sausheong\gwp
 
 * **03-23 16:05**   [1.10 first_webapp](https://github.com/lluxury/Go_Web_Programming_sg/tree/d773bdfec4731991fdfdcb6fda12ce83f918074a)    
 项目很简单, 进入目录 运行即可, 最后网页上可以看到 Hello World!
+
+##### 第二章
 
 * **04-15 16:14**    [2.4.1 chitchat](https://github.com/lluxury/Go_Web_Programming_sg/tree/e3d7c7b74848f219469a6090f813ff1008578fc7)   
 开始有代码, 尝试运行一下会报找不到 index.  正常报错 因为index函数还没写 <br>
@@ -67,7 +71,7 @@ C:\Users\yann\go\src\github.com\sausheong\gwp
 C:\Users\yann\go\src\github.com\sausheong\gwp\Chapter_2_Go_ChitChat\chitchat<br>
 访问 http://localhost:8080
 
-
+##### 第三章
 
 * **04-16 10:33**    [3.2.1 Handling_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/092d31cca82cdf816a5eb9befe00ec583afe5855) 
 第三章的第一次代码,运行成功,最简单的Web服务器,默认端口80访问 <br>
@@ -111,6 +115,8 @@ HTTP/2 200 <br>
 content-type: text/plain; charset=utf-8 <br>
 content-length: 17 <br>
 date: Tue, 16 Apr 2019 08:48:15 GMT  <br>
+
+##### 第四章
 
 * **04-17 15:18**    [4.1.3 Processing_Requests](https://github.com/lluxury/Go_Web_Programming_sg/tree/fad48c90cff435687b07584e31d8b2c7ca7c2cdb) 
 处理请求,首部 header <br>
@@ -163,41 +169,66 @@ curl -i 127.0.0.1:8080/show_message
 curl -i 127.0.0.1:8080/show_message
 返回 No message found
 
+##### 第五章
 
-五章
-04-23 18:55
-http://localhost:8080/process
+* **04-23 18:55**    [5.21 base template](https://github.com/lluxury/Go_Web_Programming_sg/tree/0efa72d62b3752589d145020ad6961a652141ec1) 
+初步了解下模板的使用方法 <br>
+验证方法
+浏览器访问 127.0.0.1:8080/process <br>
 
+* **04-24 16:32**    [5.3.1 random_number](https://github.com/lluxury/Go_Web_Programming_sg/tree/07a00a22eb583eed485c7381261f3d2cf8ca98b6) 
+动作-条件动作 if <br>
+生成一个随机数,根据数字显示不同的文字
+浏览器访问 127.0.0.1:8080/process <br>
 
-04-24 16:32    if
-http://localhost:8080/process
+* **04-24 18:35**    [5.3.2 iterator](https://github.com/lluxury/Go_Web_Programming_sg/tree/675a0d0a52f897e97dbe47821a4cd2cd1c146fc9) 
+动作-迭代动作 range <br>
+迭代显示出一周星期数
+浏览器访问 127.0.0.1:8080/process <br>
 
-彩蛋
-    <!-- {[ end ]} -->  截图
+* **04-24 18:41**    [5.3.3 set_dot](https://github.com/lluxury/Go_Web_Programming_sg/tree/9d2455292ee8bb1966f063e1e50a9d229ad1d525) 
+动作-设置动作 set <br>
+设置字段
+浏览器访问 127.0.0.1:8080/process <br>
 
-04-24 18:35  range
+* **04-24 19:05**    [5.3.4 include](https://github.com/lluxury/Go_Web_Programming_sg/tree/4ca806291d860e905c404555c28f9d7344363290) 
+动作-包含动作 include <br>
+设置字段
+浏览器访问 127.0.0.1:8080/process <br>
 
+* **04-25 11:26**    [5.5.0 custom_function](https://github.com/lluxury/Go_Web_Programming_sg/tree/0e6af82dc54e3d37e0ad30e8f7c0e83f9f2f6ae5) 
+自定义函数 <br>
+日期转换函数, 数字显示有些异常
+浏览器访问 127.0.0.1:8080/process <br>
 
-04-24 18:41 set
+* **04-25 13:24**    [5.6.0 context_aware](https://github.com/lluxury/Go_Web_Programming_sg/tree/6aeb448bf129af8c707286a935d50280a1c3b5b4) 
+上下文感知 <br>
+如果模板显示的是 html 格式的内容,那么模板将对其实施 html 转义<br>
+如果模板显示的是 JavaScript 格式的内容,那么模板将对其实施 JavaScript 转义<br>
+浏览器访问 127.0.0.1:8080/process <br>
 
-
-04-24 19:05  include
-
-04-25 11:26  func
-
-04-25 13:24 context-aware
-
-
-04-25 13:41 xss
+* **04-25 13:41**    [5.6.1 XSS](https://github.com/lluxury/Go_Web_Programming_sg/tree/7419a6f7c239c24ffcbeaf3451b35b06b454ca56) 
+防御XSS攻击 <br>
+浏览器访问 127.0.0.1:8080/form <br>
+攻击脚本:
 <script>alert('Pwnd!');</script>
 
+* **04-25 14:59**    [5.6.2 no escape](https://github.com/lluxury/Go_Web_Programming_sg/tree/eee872edcb96aa75b7e34970591c779616519c3b) 
+取消转 <br>
+这个测试失败了, 无论 chrome还是火狐全没有显示出弹窗
+浏览器访问 127.0.0.1:8080/form <br>
+攻击脚本:
+<script>alert('Pwnd!');</script>
 
-04-25 14:11 不转意
-火狐 x
+* **04-25 15:26**    [5.7.0 content](https://github.com/lluxury/Go_Web_Programming_sg/tree/e4d721c019fcc37b888194d3a5fe1ccbe0671f0f) 
+模板嵌套 <br>
+多次刷新浏览器,有时显示红色字符,有时蓝色<br>
+浏览器访问 127.0.0.1:8080/process <br>
 
-04-25 14:59
-
-04-25 15:26
+* **04-25 16:03**    [5.8.0 block action](https://github.com/lluxury/Go_Web_Programming_sg/tree/a0d5fff02f2cba021e335b332b97e7b09436f2ef) 
+块动作定义默认模板 <br>
+多次刷新浏览器,有时显示红色字符,有时蓝色<br>
+浏览器访问 127.0.0.1:8080/process <br>
 
 
 Go_Web_Programming_sg go web 
