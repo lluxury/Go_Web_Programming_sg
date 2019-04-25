@@ -14,6 +14,7 @@ func process(w http.ResponseWriter, r *http.Request) {
 func form(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("form.html")
 	// t.Execute(w, nil)
+	w.Header().Set("X-XSS-Protection", "0")
 	t.Execute(w, template.HTML(r.FormValue("comment")))
 
 }

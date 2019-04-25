@@ -285,7 +285,8 @@ t :=template.New("tmp1.html").Funcs(funcMap)
         // 使用自己的权限去执行攻击者发布的恶意代码
 
 // 创建一个html表单,向应用发送数据,存储在form.html文件
-<script>alert('Pwnd!');</script>
+<script>alert('Yann!');</script>
+
         // 预防方法 转译
 // 上下文感知 对 HTML, JavaScript,CSS 或基于URL的XSS攻击
 
@@ -293,7 +294,16 @@ t :=template.New("tmp1.html").Funcs(funcMap)
         // template.HTML
 t.Execute(w, template.HTML(r.FormValue("comment")))
 // Chrome,Safari,IE8 白页面,XSS防御
-// 火狐会执行
+// 火狐会执行 并没有
+
+w.Header().Set("X-XSS-Protection", "0")
+// 让浏览器关闭内置的 xss 防御功能, 无效
+
+--ignore-certificate-errors
+--disable-xss-auditor
+--disable-web-security 
+http://localhost:8080/?xss=<script>alert(1)</script>
+// 测试了很多方法,仍然没有展现,先放弃了
 
     // 嵌套模板
       // 常识
