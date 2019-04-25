@@ -143,27 +143,82 @@ t.ExecuteTemplate(w, "t2.html","Hello, World!")
 // dot 是个变量,可以拿传过去的值,也可以自己设置
 // 学习 div 的用法
 
+
+
       // 包含动作
         // {{ template "name"}}  包含模板
+        // 模板中包含另一个模板
     
+// https://crossgit.github.io/2017/11/29/go%E7%9A%84%E6%A8%A1%E6%9D%BF/
+// 模板中如何注释
+    <!-- {{ template "h2.html" }} -->  不行
+
+// 嵌套模板,对涉及模板都要进行语法分析, 重要
+
+// 代码没有为模板设置名字,沿用模板文件中的名字
+// ParseFiles 函数的第一个参数,为主模板,对集合调用Execute方法时,主模板将被执行
+
+This is the value of the dot in t1.html - [Hello World!]
+This is t2.html
+This is the value of the dot in t2.html - []
+
+// t1.html 中的 . 被  传入 Hello World 替换
+  t, _ := template.ParseFiles("t1.html", "t2.html")
+  t.Execute(w, "Hello World!")
+
+// t1 字符串没有传给t2,所以t2打出空 []
+// 需要用 {{ template "name" arg}}
+
+// 不传和传的区别
+{{ template "t2.html"  }}
+{{ template "t2.html" . }}
+
+
+
+
+
 
 
     // 参数、变量和管道
       // 常识
+// 参数 argument 就是模板中的一个值,可以是布尔,整数,字符串
+// 也可以是变量,方法,函数,或 . , 方法单值限定
+
         // arg
-        // $variable : = value
+{{ if arg }}
+  xx
+{{ end }}
+
+// 设置变量
+$variable : = value
+
+// 变量迭代
+{{ range $key, $value := . }}
+  The key is {{ $key}} and the value is {{ $value }}
+{{ end }}
+
+// 管道模式
         // {{ p1 | p2 |  p3}}
         // 管道定义格式
+{{ 12.3456 | printf "%.2f "}}
+
+
       // 函数
+// Go 模板引擎内置了一些非常基础的函数
         // 返回一个值
         // 返回一个值和一个错误
+
       // 自定义模板函数
         // FuncMap
           // 函数名字
           // 函数
         // 将Func M ap 与模板进行绑定
+// 片定义一个函数
+
         // 用途转换函数
+
         // 直接调用,管道调用
+
     // 上下文感知
       // 常识
         // 根据位置,显示内容的时候将对其进行修改
