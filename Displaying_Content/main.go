@@ -14,7 +14,8 @@ func process(w http.ResponseWriter, r *http.Request) {
 	if rand.Intn(10) > 5 {
 		t, _ = template.ParseFiles("layout.html", "red_hello.html")
 	} else {
-		t, _ = template.ParseFiles("layout.html", "blue_hello.html")
+		// t, _ = template.ParseFiles("layout.html", "blue_hello.html")
+		t, _ = template.ParseFiles("layout.html")
 	}
 	t.ExecuteTemplate(w, "layout", "")
 }

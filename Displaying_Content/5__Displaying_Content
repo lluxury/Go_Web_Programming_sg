@@ -332,5 +332,9 @@ http://localhost:8080/?xss=<script>alert(1)</script>
 t.ExecuteTemplate(w, "layout", "")
 
     // 通过块动作定义默认模板
-      // {{ block arg}}
-    //  
+// Go 1.6 引入了一个新的块动作 block action  这个动作允许用户定义一个模板并且立即使用
+
+{{ block arg}}
+Dot is set to arg
+{{ end }}
+
