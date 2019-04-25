@@ -230,5 +230,5 @@ curl -i 127.0.0.1:8080/show_message
 多次刷新浏览器,有时显示红色字符,有时蓝色<br>
 浏览器访问 127.0.0.1:8080/process <br>
 
-
+![http://hero.iamyann.com/blog_webchat.jpg](http://hero.iamyann.com/blog_webchat.jpg)<br>
 Go_Web_Programming_sg go web 
