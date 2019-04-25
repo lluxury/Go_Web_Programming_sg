@@ -246,16 +246,37 @@ t :=template.New("tmp1.html").Funcs(funcMap)
 
         // 直接调用,管道调用
 
+
+
+
+
+
+
+
     // 上下文感知
       // 常识
         // 根据位置,显示内容的时候将对其进行修改
         // 实施正确的转义
+// 如果模板显示的是 html 格式的内容,那么模板将对其实施 html 转义
+// 如果模板显示的是 JavaScript 格式的内容,那么模板将对其实施 JavaScript 转义
+
+<body>
+    <div>{{ . }}</div>
+    <div><a herf="/{{ . }}">Path</a></div>
+    <div><a href="/?q={{ . }}">Query</a></div>
+    <div><a onclick="f(`{{ . }}`)">Onclick</a></div>
+</body>
+// 输出不同的结果,但写起来好复杂啊
+
           // HTML
           // JavaScript
           // URL
           // CSS
         // 特殊字符处理
         // 需要实践 多个div
+// 主要用于自动防御编程
+
+
       // 防御XSS攻击
         // 服务器将攻击者存储的数据原原本本地显示给其他用户
         // 使用自己的权限去执行攻击者发布的恶意代码
