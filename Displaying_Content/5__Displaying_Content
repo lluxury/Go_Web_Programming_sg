@@ -277,12 +277,22 @@ t :=template.New("tmp1.html").Funcs(funcMap)
 // 主要用于自动防御编程
 
 
+
+
+
       // 防御XSS攻击
         // 服务器将攻击者存储的数据原原本本地显示给其他用户
         // 使用自己的权限去执行攻击者发布的恶意代码
+
+// 创建一个html表单,向应用发送数据,存储在form.html文件
+<script>alert('Pwnd!');</script>
         // 预防方法 转译
+// 上下文感知 对 HTML, JavaScript,CSS 或基于URL的XSS攻击
+
       // 不对HTML进行转义
         // template.HTML
+
+
     // 嵌套模板
       // 常识
         // layout 存局
