@@ -48,14 +48,23 @@ for _, post := range PostByAuthor["Sau Sheong"] {
 
       // 文件存储
         // 常识
+// CSV 方式
+// gob方式,二进制
+// 使用二进制数据文件来快速地存储程序中的结构
+
           // gob为go特有
           // 有序关机
-          // 会话,购物车,临时工作空间
+// 会话,购物车,临时工作空间
+
+// 两种操作方法
           // io/ioutil
             // WriteFile
             // ReadFile
+
           // os
             // File
+// defer 语句 在main 函数执行完关闭
+
         // 读取和写入CSV文件
           // encoding/csv
           // 创建posts.cs文件及csvFile变量

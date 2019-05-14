@@ -2,49 +2,34 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"os"
 )
 
-type Post struct {
-	Id int
-	Content string
-	Author string
-}
-// 结构,保存帖子
-
-var PostById map[int]*Post
-var PostByAuthor map[string][]*Post
-// 通过 ID 或名字获取帖子,
-// 两个map来创建两种不同的映射
-
-func store(post Post)  {
-	PostById[post.Id] = &post
-	PostByAuthor[post.Author] = append(PostByAuthor[post.Author], &post)
-}
-// 存储帖子
-
 func main() {
-	PostById = make(map[int]*Post)
-	PostByAuthor = make(map[string][]*Post)
 
-	post1 := Post{Id:1,Content:"Hello World!",Author:"Sau Sheong"}
-	post2 := Post{Id: 2, Content: "Bonjour Monde!", Author: "Pierre"}
-	post3 := Post{Id: 3, Content: "Hola Mundo!", Author: "Pedro"}
-	post4 := Post{Id: 4, Content: "Greetings Earthlings!", Author: "Sau Sheong"}
-
-	store(post1)
-	store(post2)
-	store(post3)
-	store(post4)
-// 建立变量,调用函数
-
-	fmt.Println(PostById[1])
-	fmt.Println(PostById[2])
-
-	for _, post := range PostByAuthor["Sau Sheong"] {
-		fmt.Println(post)
+	data := []byte("Hello World!\n")
+	err := ioutil.WriteFile("data1", data, 0644)
+	if err != nil {
+		panic(err)
 	}
 
-	for _, post := range PostByAuthor["Pedro"] {
-		fmt.Println(post)
-	}
+	read1, _ := ioutil.ReadFile("data1")
+	fmt.Print(string(read1))
+	// WriteFile ReadFile
+
+	file1, _ := os.Create("data2")
+	defer file1.Close()
+
+	bytes, _ := file1.Write(data)
+	fmt.Printf("Wrote %d bytes to file\n", bytes)
+
+	file2, _ := os.Open("data2")
+	defer file2.Close()
+
+	read2 := make([]byte, len(data))
+	bytes, _ = file2.Read(read2)
+	fmt.Printf("Read %d bytes from file\n", bytes)
+	fmt.Println(string(read2))
+	// 通过 file 结构对文件读写
 }
