@@ -1,67 +1,51 @@
 package main
 
 import (
+	"bytes"
+	"encoding/gob"
 	"fmt"
-	"encoding/csv"
-	"os"
-	"strconv"
+	"io/ioutil"
 )
 
 type Post struct {
-	Id int
+	Id      int
 	Content string
-	Author string
+	Author  string
 }
+
 // 结构,保存帖子
 
-
-func main() {
-	csvFile, err := os.Create("posts.csv")	// 创建CSV
-	if err !=nil{
-		panic(err)
-	}
-	defer csvFile.Close()
-
-	allPosts := []Post{
-		Post{Id:1,Content:"Hello World!",Author:"Sau Sheong"},
-		Post{Id: 2, Content: "Bonjour Monde!", Author: "Pierre"},
-		Post{Id: 3, Content: "Hola Mundo!", Author: "Pedro"},
-		Post{Id: 4, Content: "Greetings Earthlings!", Author: "Sau Sheong"},
-	}
-
-	writer := csv.NewWriter(csvFile)	// 写入器
-	for _, post := range allPosts {
-		line := []string{strconv.Itoa(post.Id), post.Content, post.Author} // 每个帖子一个切片
-		err := writer.Write(line)
-		if err != nil{
-			panic(err)
-		}
-	}
-	writer.Flush()	// 清缓存
-	
-
-	file, err := os.Open("posts.csv")	// 打开CSV
+func store(data interface{}, filename string) {		// 存储数据
+	// buffer := new(bytes.buffer)
+	buffer := new(bytes.Buffer)		// 字节缓存区
+	encoder := gob.NewEncoder(buffer)  // 编码器
+	err := encoder.Encode(data)    // 编码
 	if err != nil {
 		panic(err)
 	}
-	defer file.Close()
-
-	reader := csv.NewReader(file)	// 读取器
-	reader.FieldsPerRecord = -1		// 缺失字段不中断,正数为保证字段值,0为自适应
-	record, err := reader.ReadAll()	// 返回切片组成的结果
-	if err != nil {
+	err = ioutil.WriteFile(filename, buffer.Bytes(), 0600)
+	if err != nil {				// 写入文件
 		panic(err)
 	}
-
-	var posts []Post
-	for _, item := range record {
-		id, _ := strconv.ParseInt(item[0],0,0)
-		post := Post{Id:int(id), Content:item[1], Author:item[2]}
-		posts = append(posts,post) // 组成结果
-	}
-	fmt.Println(posts[0].Id)
-	fmt.Println(posts[0].Content)
-	fmt.Println(posts[0].Author)
-
 }
 
+func load(data interface{}, filename string) {		// 载入数据
+	raw, err := ioutil.ReadFile(filename)
+	if err != nil {
+		panic(err)
+	}
+	buffer := bytes.NewBuffer(raw)
+	dec := gob.NewDecoder(buffer)
+	err = dec.Decode(data)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func main() {
+	post := Post{Id: 1, Content: "Hello World!", Author: "Sau Sheong"}
+	store(post, "post1")
+	var postRead Post
+	load(&postRead, "post1")
+	fmt.Println(postRead)
+}

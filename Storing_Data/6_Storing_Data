@@ -70,42 +70,51 @@ for _, post := range PostByAuthor["Sau Sheong"] {
 
 
 
-        // 读取和写入CSV文件
-          // encoding/csv
-          // 创建posts.cs文件及csvFile变量
-          // 将allPosts变量中的所有帖子都写入这个文件
-          // NewWriter创建写入器
-            // 文件作为参数
-          // 创建个由字符串组成的切片
-          // 调用Write 方法
-          // 写入立即读取,需要Flush 强制
-          // 读取 打开文件,NewReader 创造读取器
-          // FieldsPerRecord 设为负数,获取字段
-          // ReadAll 方法或单条遍历
-        // gob包
-          // 包用于管理由gob 组成的流 stream
-          // 流是一种在编码器encoder和解码器decoder之间进行交换的二进制数据
-          // 为序列化以及数据传输而设计的,也可以用于持久化
-          // 编码器和解码器一般都会分别包裹起程序的写入器以及读取器
-          // 包
+    // 读取和写入CSV文件
+      // encoding/csv
+      // 创建posts.cs文件及csvFile变量
+      // 将allPosts变量中的所有帖子都写入这个文件
+      // NewWriter创建写入器
+        // 文件作为参数
+      // 创建多个由字符串组成的切片
+      // 调用Write 方法
+      // 写入立即读取,需要Flush 强制
+      // 读取 打开文件,NewReader 创造读取器
+FieldsPerRecord 设为负数,不获取字段
+      // ReadAll 方法或单条遍历
+
+    // gob包
+encoding/gob 包用于管理由gob 组成的流 stream
+      // 流是一种在编码器encoder和解码器decoder之间进行交换的二进制数据
+      // 为序列化以及数据传输而设计的,也可以用于持久化
+      // 编码器和解码器一般都会分别包裹起程序的写入器以及读取器
+      // 包
             // bytes
             // encoding/gob
             // fmt
             // io/ioutil
           // 流程
             // Post结构,store方法,load方法
+func store(data interface{}, filename string) { 
+    // 空接口,文件名,接受Post结构
+
             // store 空接口,二进制名字
-            // bytes.Buffer 缓冲区
+bytes.Buffer // 缓冲区
               // 读取器
               // 写入器
-            // NewEncoder
+NewEncoder
               // gob编码器
               // 调用编码器的Encode 方法
               // 数据编码到缓冲
               // 缓冲写入文件
+
             // 读取
               // 取出原始数据,建立缓冲
             // 解码获取Post结构
+
+// 缓存器,编码器,编码,写入
+// 缓存器,解码器,解码,读出
+
       // Go与SQL
         // 设置数据库
           // 用户
