@@ -1,0 +1,221 @@
+
+    // 第章 存储数据
+      // 常识
+        // 使用结构进行内存存储
+        // CSV,gdb 二进制
+        // SQL
+        // 内存,文件系统,数据库
+
+// 数据存储内存
+// 数据存储系统文件
+// 数据存储数据库
+
+      // 内存存储
+        // 存在运行中的应用里面
+
+// 将数据存储在数据结构里
+
+        // 数组
+        // 切片
+        // 映射 map
+            
+        // 栈
+        // 树
+        // 队列
+
+        // 创建相应结构
+          // 容器包裹的多个结构
+          // type xx struct
+          // var PostByid map[int)*Post
+// 通过 ID 或名字获取帖子,
+// 将一个代表帖子的键映射到实际的Post结构来存储多个帖子
+// 两个map来创建两种不同的映射
+var PostById map[int]*Post
+var PostByAuthor map[string][]*Post
+// 唯一ID映射指针,名字映射切片,包含多个帖子指针,注意值类型
+
+          // 映射指针
+            // 通过id或名字获取同一个帖子
+            // 否则会是同一个帖子的副本
+          // 不要一上来就存数据库
+fmt.Println(PostById[2])
+
+for _, post := range PostByAuthor["Sau Sheong"] {
+    fmt.Println(post)
+}
+// 两种查询
+
+
+      // 文件存储
+        // 常识
+          // gob为go特有
+          // 有序关机
+          // 会话,购物车,临时工作空间
+          // io/ioutil
+            // WriteFile
+            // ReadFile
+          // os
+            // File
+        // 读取和写入CSV文件
+          // encoding/csv
+          // 创建posts.cs文件及csvFile变量
+          // 将allPosts变量中的所有帖子都写入这个文件
+          // NewWriter创建写入器
+            // 文件作为参数
+          // 创建个由字符串组成的切片
+          // 调用Write 方法
+          // 写入立即读取,需要Flush 强制
+          // 读取 打开文件,NewReader 创造读取器
+          // FieldsPerRecord 设为负数,获取字段
+          // ReadAll 方法或单条遍历
+        // gob包
+          // 包用于管理由gob 组成的流 stream
+          // 流是一种在编码器encoder和解码器decoder之间进行交换的二进制数据
+          // 为序列化以及数据传输而设计的,也可以用于持久化
+          // 编码器和解码器一般都会分别包裹起程序的写入器以及读取器
+          // 包
+            // bytes
+            // encoding/gob
+            // fmt
+            // io/ioutil
+          // 流程
+            // Post结构,store方法,load方法
+            // store 空接口,二进制名字
+            // bytes.Buffer 缓冲区
+              // 读取器
+              // 写入器
+            // NewEncoder
+              // gob编码器
+              // 调用编码器的Encode 方法
+              // 数据编码到缓冲
+              // 缓冲写入文件
+            // 读取
+              // 取出原始数据,建立缓冲
+            // 解码获取Post结构
+      // Go与SQL
+        // 设置数据库
+          // 用户
+            // createuser -P -d gwp
+          // 库
+            // createdb gwp
+          // 表
+            // setup . sql
+            // psql -U gwp -f setup . sql -d gwp
+          // 测试环境的恢复问题
+        // 连接数据库
+          // 先使用Db 变量定义了一个指向sql.DB 结构的指针
+          // 使用init ()函数来初始化这个变量
+          // sql. DB 结构是一个数据库句柄 handle
+          // 是一个包含了零个或任意多个数据库连接的连接池
+          // Open函数,驱动名字,数据源名字建立连接
+          // 返回一个指向sql . DB 结构的指针作为结果
+          // Open需要才连接
+          // 流程
+            // 向Register 函数提供一个数据库驱动名
+            // 一个实现了driver.Driver接口的结构
+            // 注册将要用到的数据库驱动
+              // _ 导入pq包
+        // 创建帖子
+          // 创建一个Post 结构
+          // 为该结构的Content 字段设置值
+          // 为该结构的Author字段设置值
+          // Id字段自增
+          // post.Create()
+            // 定义一条SQL 预处理语句
+            // 执行时为参数提供实际值
+          // sql . DB 结构的Prepare 方法
+            // 创建指向sql.Stmt 接口的引用
+            // 驱动实现
+          // 调用QueryRow 方法
+            // 把来自接收者的数据传递给该方法
+          // 要获取一个指向sql. Row 结构的引用
+            // 只返回sqlRow结构
+            // 不返回错误
+            // 和Scan 方法搭配使用
+        // 获取帖子
+          // Get Post
+            // 接受帖子的Id 作为参数
+              // 传值
+            // 创建空Post结构
+            // 设置结构,做为函数的返回值
+            // 串联QueryRow 方法和Scan 方法
+            // 查询所得的数据复制到空的Post 结构里面后返回
+            // 使用sql.DB结构的QueryRow方法,非sql.Strnt结构的Qu eryRow 方法
+        // 更新帖子
+          // 保存到readPost 变量
+            // Update 方法
+          // 预处理语句，而是直接调用sql.DB 结构的Exec 方法
+          // 不需要接受者更新,也不需要返回结果扫描 scan
+          // sql.Result 和一个可能出现的错误
+        // 删除帖子
+          // 调用sql.DB 结构的Exec 方法执行SQL查询
+        // 一次获取多篇帖子
+          // 获取前十篇帖子
+          // 使用sql.DB 结构的Query 方法查询
+          // 返回一个Rows 接口
+            // 迭代器
+          // 调用Next方法获得sql.Row
+          // 迭代时创建结构,加入数据,放在切片末尾,返回
+      // Go与SQL的关系
+        // 常识
+          // 一对一
+            // 用户信息
+          // 一对多
+            // 用户帖子
+          // 多对一
+            // 多帖子属于一个用户
+          // 多对多关联
+            // 多人回复
+        // 设置数据库
+          // 建两个表
+            // posts
+            // comments
+              // post_id
+              // 外键
+              // 删除posts表时要删除依赖表
+          // 实现
+            // 一对多
+            // 多对一
+        // 一对多关系
+          // Post 结构新增Comments 字段
+            // 切片
+            // 任意多Comment结构
+          // Comment 结构也新增Post 字段
+            // 个指向Post结构的指针
+          // Post结构和Comment/结构在构建关系时使用的都是指针
+            // 避免副本
+          // 如何实际构建关系
+            // 创建Comment结构
+            // 检查帖子是否存在
+            // 调用Create方法创建评论
+          // 修改Get Post 函数
+            // 获取帖子的同时一并获取与帖子相关联的评论
+            // 执行后readPost变量的Comments字段来查看评论
+            // 出示结构迭代评论,小量可以
+      // Go与关系映射器
+        // 常用
+          // ORM
+            // Hibernate
+            // Ruby 的Active Record
+            // Scala 有Activate 框架
+             // Haskell 有Groundhog
+        // Sqlx
+          // 结构标签
+            // 行封装为结构、映射或者切片
+          // 为预处理语句提供具名参数支持
+        // Gorm
+          // 数据映射器模式
+          // 定义关系、实施数据迁移、串联多个查询
+          // 设置回调函数
+          // AutoMigrate
+          // 数据映射器模式
+            // 使用数据库句柄g orm .DB 作为构造器
+            // created at 这个时间戳
+            // 先创建出一条评论
+            // 过串联Model 方法、Association 方法和App end
+          // 获取
+            // gorm.DB 的Where 方法
+            // 条记录存储在了readPost 变量
+            // 调用Model 方法获取帖子的模型
+            // 着调用Related方法获取帖子的评论
+            // 评论存储到comments 变量
