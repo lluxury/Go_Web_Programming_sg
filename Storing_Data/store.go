@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	_ "github.com/lib/pq"
 )
@@ -10,6 +11,14 @@ type Post struct {
 	Id int
 	Content string
 	Author  string
+	Comments []Comment
+}
+
+type Comment struct {
+	Id int
+	Content string
+	Author string
+	Post *Post
 }
 
 var Db *sql.DB
@@ -21,88 +30,54 @@ func init()  {
 	}	// 连接数据库
 }
 
-func Posts(limit int) (posts []Post, err error) {
-	rows, err := Db.Query("select id, content, author from posts limit $1", limit)
-	if err != nil {
-		return
+	// func (comment *Comment) create() (err error)  {
+	func (comment *Comment) Create() (err error) {
+	if comment.Post == nil{
+		err = errors.New("Post not found")
+		return 
 	}
-	for rows.Next() {
-		post := Post{}
-		err = rows.Scan(&post.Id, &post.Content, &post.Author)
-		if err != nil {
-			return
-		}
-		posts = append(posts, post)
-	}
-	rows.Close()
-	return	//获取全部帖子
+	err = Db.QueryRow("insert into comments (content, author, post_id) values ($1, $2,$3) returning id", comment.Content, comment.Author, comment.Post.Id).Scan(&comment.Id)
+	return 
 }
 
 func GetPost(id int) (post Post, err error) {
 	post = Post{}
+	  post.Comments = []Comment{}
 	err = Db.QueryRow("select id, content, author from posts where id = $1", id).Scan(&post.Id, &post.Content, &post.Author)
-	return
-}  //获取单个帖子
-
-func (post *Post) Create() (err error) {
-	statement := "insert into posts (content, author) values ($1, $2) returning id"
-	stmt, err := Db.Prepare(statement)
+	
+	rows, err := Db.Query("select id, content, author from comments")
 	if err != nil {
 		return
 	}
-	defer stmt.Close()
-	err = stmt.QueryRow(post.Content, post.Author).Scan(&post.Id)
+	for rows.Next(){
+		comment := Comment{Post: &post}
+		err = rows.Scan(&comment.Id, &comment.Content, &comment.Author)
+		if err != nil {
+			return
+		}
+		post.Comments = append(post.Comments, comment)
+	}
+	rows.Close()
+	return 
+}  //创建评论
+
+// func (post *Post) Create() (err erros){
+func (post *Post) Create() (err error){
+	err = Db.QueryRow("insert into posts (content, author) values ($1, $2) returning id", post.Content, post.Author).Scan(&post.Id)
 	return
 }
-// 新建帖子
 
-func (post *Post) Update() (err error) {
-	_, err = Db.Exec("update posts set content = $2, author = $3 where id = $1", post.Id, post.Content, post.Author)
-	return
-}
-//更新帖子
-
-func (post *Post) Delete() (err error) {
-	_, err = Db.Exec("delete from posts where id = $1", post.Id)
-	return
-}
-// 删除帖子
-
-
-func DeleteAll() (err error) {
-	_, err = Db.Exec("delete from posts")
-	return
-}
-// 删除全部
 
 func main() {
 	post := Post{Content: "Hello World!", Author: "Sau Sheong"}
-
-	// Create a post
-	fmt.Println(post) // {0 Hello World! Sau Sheong}
 	post.Create()
-	fmt.Println(post) // {1 Hello World! Sau Sheong}
 
-	// Get one post
+	// Add a comment
+	comment := Comment{Content: "Good post!", Author: "Joe", Post: &post}
+	comment.Create()
 	readPost, _ := GetPost(post.Id)
-	fmt.Println(readPost) // {1 Hello World! Sau Sheong}
 
-	// Update the post
-	readPost.Content = "Bonjour Monde!"
-	readPost.Author = "Pierre"
-	readPost.Update()
-
-	// Get all posts
-	posts, _ := Posts(10)
-	fmt.Println(posts) // [{1 Bonjour Monde! Pierre}]
-
-	// Delete the post
-	readPost.Delete()
-
-	// Get all posts
-	posts, _ = Posts(10)
-	fmt.Println(posts) // []
-
-	// Delete all posts
-//   DeleteAll()
+	fmt.Println(readPost)                  // {1 Hello World! Sau Sheong [{1 Good post! Joe 0xc20802a1c0}]}
+	fmt.Println(readPost.Comments)         // [{1 Good post! Joe 0xc20802a1c0}]
+	fmt.Println(readPost.Comments[0].Post) // &{1 Hello World! Sau Sheong [{1 Good post! Joe 0xc20802a1c0}]}
 }

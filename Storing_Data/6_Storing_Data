@@ -130,7 +130,14 @@ createuser -P -d gwp
 createdb gwp
 
 export PGPASSWORD=gwp
-touch setup.sql
+vi setup.sql
+    drop table posts;
+
+    create table posts (
+      id      serial primary key,
+      content text,
+      author  varchar(255)
+    );
 
 psql -Ugwp -f setup.sql -d gwp
 
@@ -304,6 +311,8 @@ func Posts(limit int) (posts []Post, err error) {
 
 
 
+
+
       // Go与SQL的关系
         // 常识
 // 一对一
@@ -316,33 +325,101 @@ func Posts(limit int) (posts []Post, err error) {
   // 多人回复
 
 
-    
+
         // 设置数据库
           // 建两个表
-            // posts
-            // comments
+posts
+comments
               // post_id
-              // 外键
+// 外键 post_id
               // 删除posts表时要删除依赖表
+
           // 实现
             // 一对多
             // 多对一
+
         // 一对多关系
           // Post 结构新增Comments 字段
+type Post struct {
+    Id int
+    Content string
+    Author  string
+    Comments []Comment
+}
+
+type Comment struct {
+    Id int
+    Content string
+    Author string
+    Post *Post
+}
+
+// Comments字段,任意多个Comment结构组成的切片
+// Post字段,指向Post结构的指针
+// 构建关系时使用的都是指针,确定不会获取到副本
+
             // 切片
             // 任意多Comment结构
           // Comment 结构也新增Post 字段
             // 个指向Post结构的指针
           // Post结构和Comment/结构在构建关系时使用的都是指针
             // 避免副本
+
           // 如何实际构建关系
-            // 创建Comment结构
-            // 检查帖子是否存在
-            // 调用Create方法创建评论
-          // 修改Get Post 函数
-            // 获取帖子的同时一并获取与帖子相关联的评论
-            // 执行后readPost变量的Comments字段来查看评论
-            // 出示结构迭代评论,小量可以
+// 定义一对多时,也定义了多对一
+// 创建评论的时候,建立关系
+    comment := Comment{Content: "Good post!", Author: "Joe", Post: &post}
+    comment.Create()
+
+// 创建Comment结构
+// 检查帖子是否存在
+// 调用Create方法创建评论
+
+// Comment结构的Create方法
+    func (comment *Comment) Create() (err error) {
+    if comment.Post == nil{
+        err = errors.New("Post not found")
+        return 
+    }
+    err = Db.QueryRow("insert into comments (content, author, post_id) values ($1, $2,$3) returning id", comment.Content, comment.Author, comment.Post.Id).Scan(&comment.Id)
+    return 
+}
+
+// 检查给定的帖子是否存在
+
+  // 修改Get Post 函数
+    // 获取帖子的同时一并获取与帖子相关联的评论
+    // 执行后readPost变量的Comments字段来查看评论
+readPost, _ := GetPost(post.Id)
+
+    // 出示结构迭代评论,小量可以
+func GetPost(id int) (post Post, err error) {
+    post = Post{}
+      post.Comments = []Comment{}
+    err = Db.QueryRow("select id, content, author from posts where id = $1", id).Scan(&post.Id, &post.Content, &post.Author)
+    
+    rows, err := Db.Query("select id, content, author from comments")
+    if err != nil {
+        return
+    }
+    for rows.Next(){
+        comment := Comment{Post: &post}
+        err = rows.Scan(&comment.Id, &comment.Content, &comment.Author)
+        if err != nil {
+            return
+        }
+        post.Comments = append(post.Comments, comment)
+    }
+    rows.Close()
+    return 
+}
+
+// 初始化Comments字段,获取帖子的具体数据,迭代评论
+
+// 代码居然不能断行,之前不知道
+
+
+
       // Go与关系映射器
         // 常用
           // ORM
