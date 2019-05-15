@@ -436,25 +436,79 @@ git clone https://github.com/jmoiron/sqlx C:\Users\yann\go\src\github.com\jmoiro
 
 // 替换了一些代码,原有的注释掉了
 // 根据结构字段名的英文小写体, 将结构中的字段映射至表中的列
-通过结构标签来指示Sqlx应该从 author 列里面获取 AuthorName 字段的数据
+// 通过结构标签来指示Sqlx应该从 author 列里面获取 AuthorName 字段的数据
 
 // StructScan方法,自动映射
 // 特性不多,但改变也不大
 
 
         // Gorm
+git clone https://github.com/jinzhu/inflection C:\Users\yann\go\src\github.com\jinzhu\gorm\inflection
+// 这个和之前的方法比较有些不一样,需要消化
+
+// Gorm 可以通过自动数据迁移特性来创建所需的数据库表,不需要 setup.sql设置
+// 所以之前sql建的表需要删除
+
+
           // 数据映射器模式
           // 定义关系、实施数据迁移、串联多个查询
           // 设置回调函数
-          // AutoMigrate
+// var Db gorm.DB
+var Db *gorm.DB
+
+func init()  {
+    var err error
+    // Db, err = sqlx.Open("postgres", "postgres://gwp:gwp@192.168.142.9/gwp?sslmode=disable")
+    Db, err = gorm.Open("postgres", "postgres://gwp:gwp@192.168.142.9/gwp?sslmode=disable")
+    if err != nil {
+        panic(err)
+    }   // 连接数据库
+    // Db.AuthoMigrate(&Post{}, &Comment{})
+    Db.AutoMigrate(&Post{}, &Comment{})
+
+// 注意,有很多注释,其中有一处是书中的错误
+// AutoMigrate  是一个变长参数方法, 接受 Post{} 和 Comment{}的结构
+// 可以自动变更数据库结构
+
+type Comment struct {
+    Id int
+    Content string
+    Author  string `sql:"not null"`
+    PostId int  `sql:"index"`
+    CreatedAT time.Time
+}
+
+// CreatedAT time.Time 字段,结构标签
+// 自动处理外键字段
+
           // 数据映射器模式
-            // 使用数据库句柄g orm .DB 作为构造器
+post := Post{Content: "Hello World!", Author: "Sau Sheong"}
+Db.Create(&post)  // 创建帖子
+
+            // 使用数据库句柄gorm.DB 作为构造器
             // created at 这个时间戳
-            // 先创建出一条评论
-            // 过串联Model 方法、Association 方法和App end
+
+
+
+// 先创建出一条评论
+// 过串联Model 方法、Association 方法和Append,
+// 无需手动对Comment结构的PostId字段执行操作
+    comment := Comment{Content: "Good post!", Author: "Joe"}    // 添加评论
+    Db.Model(&post).Association("Comments").Append(comment)
+
           // 获取
-            // gorm.DB 的Where 方法
-            // 条记录存储在了readPost 变量
-            // 调用Model 方法获取帖子的模型
-            // 着调用Related方法获取帖子的评论
-            // 评论存储到comments 变量
+    var readPost Post
+    Db.Where("author = $1", "Sau Sheong").First(&readPost)  // 通过帖子获取评论
+      var comments []Comment
+      Db.Model(&readPost).Related(&comments)
+
+// gorm.DB 的Where 方法
+// 抓取第一条作者是Sau Sheong的记录,存在readPost变量,
+// 调用Model 方法获取帖子的模型
+// 着调用Related方法获取帖子的评论
+// 评论存储到comments 变量
+
+
+// Gorm
+// Beego的ORM库
+// GORP
