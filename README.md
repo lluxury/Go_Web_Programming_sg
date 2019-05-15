@@ -230,26 +230,48 @@ curl -i 127.0.0.1:8080/show_message
 多次刷新浏览器,有时显示红色字符,有时蓝色<br>
 浏览器访问 127.0.0.1:8080/process <br>
 
+##### 第六章
+
+* **05-14 15:55**    [6.1.0 store memory](https://github.com/lluxury/Go_Web_Programming_sg/tree/3f9d39cf3454b231115af5182b3efcae464f1a6c) 
+把数据以数据结构的方式存储在内存中 <br>
+结果:在命令行中打印出存储的数据 <br>
+
+* **05-14 17:19**    [6.2.0 read_write_files](https://github.com/lluxury/Go_Web_Programming_sg/tree/b9c9f3dfb61208046f68a55be581066725a67784) 
+把数据以数据结构的方式存储在文本文件中 <br>
+结果:在命令行中打印出存储的数据 <br>
+    在程序目录也可以看到生成的txt文件 <br>
+
+* **05-14 17:38**    [6.2.1 csv_store](https://github.com/lluxury/Go_Web_Programming_sg/tree/e43d5b617882c58fe05e557d500798e8df41789b) 
+把数据以数据结构的方式存储在csv文件中 <br>
+结果:在命令行中打印出存储的数据 <br>
+    在程序目录也可以看到生成的csv文件 <br>
+
+* **05-14 18:39**    [6.2.2 gob_store](https://github.com/lluxury/Go_Web_Programming_sg/tree/f12c987424d3eb4c59e02eb6c50362adb494f03a) 
+把数据以数据结构的方式存储在gob文件中,这是go独有的一种二进制格式 <br>
+结果:在命令行中打印出存储的数据 <br>
+    在程序目录也可以看到生成的二进制文件,当然看不到内容 <br>
+
+* **05-15 10:21**    [6.3.1 sql store base](https://github.com/lluxury/Go_Web_Programming_sg/tree/b5011936ff6daba15430cfc729c123a7fc0b58ec) 
+把数据以数据结构的方式存储在数据库中 <br>
+这一章实现了数据库的基本CURD操作,内容非常的多 <br>
+结果:在命令行中打印出数据库存储的数据 <br>
+
+* **05-15 15:34**    [6.3.2 sql comment](https://github.com/lluxury/Go_Web_Programming_sg/tree/44ecc8893233a78129c671d41d7d5716d94aa2c4) 
+表之间建立关联,一对多,多对一,帖子和评论的相互关系 <br>
+这一章讲述了数据之间的对应关系,这是数据库编程的基础 <br>
+结果:在命令行中打印出数据库存储的帖子及相关评论 <br>
+
+* **05-15 16:29**    [6.5.1 Sqlx](https://github.com/lluxury/Go_Web_Programming_sg/tree/074b3579b94e3e5b2ccb85f4f910b579df21a53f) 
+使用第三方ORM软件sqlx 来操作数据库<br>
+结果:在命令行中打印出存储的数据 <br>
+
+* **05-15 18:19**    [6.5.2 gorm](https://github.com/lluxury/Go_Web_Programming_sg/tree/0a56de90ea8364545a37ebac60ac58b21b2cb688) 
+使用第三方ORM软件gorm 来操作数据库<br>
+结果:在命令行中打印出存储的数据 <br>
+
 ![http://hero.iamyann.com/blog_webchat.jpg](http://hero.iamyann.com/blog_webchat.jpg)<br>
 Go_Web_Programming_sg go web 
 
 
 
-05-14 15:55  memory
 
-
-05-14 17:19  file
-
-05-14 17:38  csv
-
-
-
-05-14 18:39 gob
-
-05-15 10:21 sql
-
-
-05-15 15:34  sql 2
-
-
-05-15 16:29 sql3
