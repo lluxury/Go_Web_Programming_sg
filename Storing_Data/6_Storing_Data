@@ -421,16 +421,27 @@ func GetPost(id int) (post Post, err error) {
 
 
       // Go与关系映射器
-        // 常用
-          // ORM
-            // Hibernate
-            // Ruby 的Active Record
-            // Scala 有Activate 框架
-             // Haskell 有Groundhog
-        // Sqlx
-          // 结构标签
-            // 行封装为结构、映射或者切片
-          // 为预处理语句提供具名参数支持
+// 常用
+  // ORM
+    // Hibernate
+    // Ruby 的Active Record
+    // Scala 有Activate 框架
+     // Haskell 有Groundhog
+// Sqlx
+  // 结构标签
+    // 行封装为结构、映射或者切片
+  // 为预处理语句提供具名参数支持
+
+git clone https://github.com/jmoiron/sqlx C:\Users\yann\go\src\github.com\jmoiron\sqlx
+
+// 替换了一些代码,原有的注释掉了
+// 根据结构字段名的英文小写体, 将结构中的字段映射至表中的列
+通过结构标签来指示Sqlx应该从 author 列里面获取 AuthorName 字段的数据
+
+// StructScan方法,自动映射
+// 特性不多,但改变也不大
+
+
         // Gorm
           // 数据映射器模式
           // 定义关系、实施数据迁移、串联多个查询
