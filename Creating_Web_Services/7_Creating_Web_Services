@@ -1,0 +1,171 @@
+    // 第7章 Go Web服务
+   // 常识
+     // 单页应用 SPA
+     // 移动应用
+     // REST风格web服务
+     // XML JSON
+     // 使用JSON 传输数据的web服务
+  
+   // Web服务简介
+     // 与其他软件程序进行交互的软件程序
+// 终端不是人,通过HTTP通信
+     // 种类
+       
+       // SOAP
+         // 企业
+         // WS -Security
+         // WS-Addressing
+         // UUDI 目录规范发布
+         // WSDL?
+         // 笨重复杂
+         // 功能驱动 RPC
+       
+       // REST
+         // 数据驱动
+       // XML-RPC     
+     // Programmable Web
+     // 内外联合
+   
+   // 基于SOAP的Web服务简介
+// SOAP是一种协议，用于交换定义在XML里面的结构化数据
+     // 高度结构化,严格定义
+     // 运作
+       // 报文放入信封
+       // Content -Type 为application/ soap+xml
+       // 响应报文也包含在SOAP报文的主体里面
+       // 大部分web服务通过POST 方法发送SOAP 报文
+       // WSDL 报文
+     // SOAP请求报文由WSDL生成的SOAP客户端负责生成
+     // SOAP响应报文通常也是由WSDL 生成的SOAP 服务器负责生成
+     // 客户端由WSDL负责生成
+       // 微小修改也要重新生成
+   // 基于REST的Web服务简介
+     // 具象状态传输
+     // 将动作转换为资源的属性
+     // 解释
+       // 编程范型
+         // 定义函数 调用函数
+       // OOP
+         // 创建对象的模型表示事物
+         // 定义方法附着模型
+       // REST
+         // 以资源的名义把模型暴露出来
+         // 通过少数几个动作操纵资源
+         // URL表示资源, POST,GET,PUT(重给定) 为动词
+         // REST使用HTTP方法与数据库的CRUD操作之间的映射关系
+         // PUT 方法是幕等的
+         // POST 并不是幕等,不断新增
+         // 使用REST API 的时候通常都是返回JSON
+         // WADL应用描述语言
+           // Swagger
+           // RAML Restful API Modeline Language
+           // JSON-home
+     // REST应用如何激活用户的账号?
+       // ACTIVATE不容许
+       // 过程具体化,动作转名词
+         // 创建被激活资源
+POST /user/456/activation HTTP/1.1
+{ "date": "2015-05-15T13:05:05Z"}
+
+       // 动作用作资源的属性
+         // PATCH 部分更新属性
+PATCH /user/456 HTTP/.1
+{"active" : "true"}
+
+   // 通过Go分析和创建XML
+     // 常识
+       // 开发XML Web 服务
+       // 从一个RSS 新闻源里面获取数据
+         // 用做源
+       // 分析XML提取信息
+         // 创建用于存储XML数据的结构
+         // 使用xml.Unmarshal解封数据
+       // encoding 包
+
+<?xml version="1.0" encoding="utf-8"?>
+<post id="1">
+  <content>Hello World!</content>
+  <author id="2">Sau Sheong</author>
+</post>
+// 元素名字 post,属性 id,子元素 content
+// 子元素 author 有id属性,单独定义结构
+
+     // 分析XML
+type Post struct {
+  XMLName xml.Name  `xml:"post"`
+  Id    string     `xml:"id, attr"`
+  Content string    `xml:"content"`
+  Author  Author    `xml:"author"`
+  Xml   string     `xml:",innerxml"`
+}
+
+       // 定义结构
+         // 结构标签
+// `xml:"post"`  键,值
+
+// 结构以及结构包含的所有宇段都必须是公开
+       // 规则
+         // 名字 XMLName
+           // 类型xml.Name
+XMLName xml.Name    // 名字
+
+         // 创建一个与XML 元素属性同名的字段
+           // xml: <name>,attr
+`xml:"id, attr"`    // 元素属性
+
+           // chardata 字符数据
+`xml:"content"`
+
+           // innerxml 原始XML
+`xml:",innerxml"`
+
+`xml:"author"`
+
+  var post Post
+  xml.Unmarshal(xmlData, &post)
+
+// 读取内容,解封
+  
+           // xml:"a>b>c" 穿越访问
+
+       // 解封
+         // 的Unmarshal 函数只接受字节切片 字符串参数
+         // xml 转字符串
+           // 流和大文件不行
+         // 使用Decoder 结构来代替Unmarshal 函数
+         // token 是一个表示XML 元素的接口
+         // token取出时,返回io.EOF
+           // 并将返回值中的err 变量的值设置为nil
+         // 确认是否为StartElement
+           // 起始标签
+     // 创建XML
+       // 样把Go 结构封装 marshal 至XML
+         // 把Go 结构编码至XML
+       // 创建结构,向结构里面填充数据
+         // 调用Marshal 函数
+         // Marshal Indent 函数有格式
+         // xml . Header 常量加XML 声明
+         // 或编码器
+   // 通过Go分析和创建JSON
+     // 分析JSON
+       // 创建数据结构
+         // json:"<name>"
+       // json.Unmarshal解封
+       // Decoder
+         // io.Reader流
+     // 创建JSON
+       // 创建结构
+       // Marshal Indent 函数
+       // 或NewEncoder创建编码器
+       // 调用Encode
+         // 传递结构引用
+         // 提取数据并编码
+         // 写入文件
+   // 创建Go Web服务
+     // 创建web服务
+       // 对帖子创拉更删
+       // CRUD 函数包裹web服务接口
+       // 通过JSON 格式来传输数据
+     // 调用
+       // curl -i -X POST -H "" -d  ''
+    
