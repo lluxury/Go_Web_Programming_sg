@@ -271,6 +271,19 @@ json:"<name>" // 结构标签
          // 传递结构引用
          // 提取数据并编码
          // 写入文件
+    jsonFile, err := os.Create("post.json")       // 创建用于存储数据的 JSON 文件
+  if err != nil {
+    fmt.Println("Error creating JSON file:", err)
+    return 
+  }
+  jsonWriter := io.Writer(jsonFile)           // 根据给定的路ON 文件创建出相应的编码器
+  // encoder := json.NewEncoder(jsonFile)
+  encoder := json.NewEncoder(jsonWriter)
+  encoder.Indent("", "\t")
+  // err = ioutil.WriteFile("post.json", output, 0644)
+  err = encoder.Encode(&post)                 //把结构编码到 JSON 文件里
+
+
    // 创建Go Web服务
      // 创建web服务
        // 对帖子创拉更删
