@@ -245,9 +245,23 @@ err = ioutil.WriteFile("post.xml", []byte(xml.Header + string(output)), 0644)
        // 创建数据结构
 json:"<name>" // 结构标签
 
-       // json.Unmarshal解封
+// 为了将 JSON 键 id 的值映射到 Post 结构的 Id 字段，程序将该字段的结构标签设置成了 `json:"id"` 
+// 分析程序通过切片来嵌套多个结构, 比如一篇文章包含多个评论
+
+       // json.Unmarshal 解封
+
        // Decoder
          // io.Reader流
+
+  decoder := json.NewDecoder(jsonFile)
+  for{                  // 「遍历 JSON 文件，直到遇见 EOF 为止
+    var post Post
+    err := decoder.Decode(&post)   // 将 JSON 数据解码至结构
+    if err == io.EOF {
+    break
+  }
+
+
      // 创建JSON
        // 创建结构
        // Marshal Indent 函数
