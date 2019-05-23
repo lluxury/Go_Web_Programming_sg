@@ -192,16 +192,30 @@ Comments []Comment `xml:"comments>comment"`
 // Comment，表示注释
 
 // 加了点私货,毕竟稍微动一下,就知道自己哪里不足了
-        
+
 
      // 创建XML
        // 样把Go 结构封装 marshal 至XML
          // 把Go 结构编码至XML
-       // 创建结构,向结构里面填充数据
+  post := Post{
+    Id:      "1",
+    Content: "Hello World!",   // 创建结构,向结构里面填充数据
+    Author: Author{
+      Id:   "2",
+      Name: "Sau Sheong",
+    },
+  }
+
+
+output, err := xml.Marshal(&post)      // 把结构封装为由字节切片组成的 XML 数据
          // 调用Marshal 函数
+
+// 创建结构,填充数据,调用函数封装
+
          // Marshal Indent 函数有格式
          // xml . Header 常量加XML 声明
          // 或编码器
+
    // 通过Go分析和创建JSON
      // 分析JSON
        // 创建数据结构
