@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
-	"io/ioutil"
-	// "os"
+	// "io/ioutil"
+	"os"
 )
 
 type Post struct {
@@ -12,8 +12,6 @@ type Post struct {
 	Id      string   `xml:"id, attr"`
 	Content string   `xml:"content"`
 	Author  Author   `xml:"author"`
-	// Xml     string   `xml:",innerxml"`
-	// Comments []Comment `xml:"comments>comment"`
 }
 
 type Author struct {
@@ -21,14 +19,8 @@ type Author struct {
 	Name string `xml:",chardata"`
 }
 
-// type Comment struct {
-// 	Id string 		`xml:"id,attr"`
-// 	Content string 	`xml:"content`
-// 	Author Author 	`xml:"author"`
-// }
-
 func main() {
-	// xmlFile, err := os.Open("post.xml")
+
 	post := Post{
 		Id:      "1",
 		Content: "Hello World!",
@@ -38,17 +30,17 @@ func main() {
 		},
 	}
 
-	// output, err := xml.Marshal(&post)
-	output, err := xml.MarshalIndent(&post, "","\t")
+	// output, err := xml.MarshalIndent(&post, "","\t")
+	xmlFile, err := os.Create("post.xml")
 	if err != nil {
-		fmt.Println("Error marshalling to XML :", err)
+		fmt.Println("Error creating XML file:", err)
 		return
 	}
-	// err = ioutil.WriteFile("post.xml", output, 0644)
-	err = ioutil.WriteFile("post.xml", []byte(xml.Header + string(output)), 0644)
+	encoder := xml.NewEncoder(xmlFile)
+	encoder.Indent("", "\t")
+	err = encoder.Encode(&post)
 	if err != nil {
-		fmt.Println("Error writing XML to file", err)
+		fmt.Println("Error encoding XML to file:", err)
 		return
 	}
-
 }

@@ -220,7 +220,21 @@ output, err := xml.MarshalIndent(&post, "","\t")
          // 用xml.Header 常量加 XML 声明
 err = ioutil.WriteFile("post.xml", []byte(xml.Header + string(output)), 0644)
 
+
+
          // 使用编码器构建
+  xmlFile, err := os.Create("post.xml")   // 创建用于存储数据的 XML 文件
+  if err != nil {
+    fmt.Println("Error creating XML file:", err)
+    return
+  }
+  encoder := xml.NewEncoder(xmlFile)    // 根据给定的 XML 文件创建出相应的编码器
+  encoder.Indent("", "\t")
+  err = encoder.Encode(&post)           // 把结构编码至文件
+  if err != nil {
+    fmt.Println("Error encoding XML to file:", err)
+    return
+  }
 
    // 通过Go分析和创建JSON
      // 分析JSON
