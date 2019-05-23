@@ -121,12 +121,28 @@ XMLName xml.Name    // 名字
 
 `xml:"author"`
 
-  var post Post
-  xml.Unmarshal(xmlData, &post)
+// Unmarshal 函数只接受字节切片(字符串),先把 XML 文件转换为字符串
+  xmlFile, err := os.Open("post.xml")
+  xmlData, err := ioutil.ReadAll(xmlFile)    
+
+// 文件读到 xmlData变量后,使用代码解封
+
+var post Post
+xml.Unmarshal(xmlData, &post)
 
 // 读取内容,解封
-  
+
+
+
            // xml:"a>b>c" 穿越访问
+
+// 再换个复杂的 xml 文件
+// 在 Post 结构中增加了类型
+// 为 Comment 结构切片的 Comments 字段
+// 通过结构标签 `xml:"comments>comment"` 将这个字段映射至名为 comment 的子元素
+// 测试穿透访问
+
+Comments []Comment `xml:"comments>comment"`
 
        // 解封
          // 的Unmarshal 函数只接受字节切片 字符串参数

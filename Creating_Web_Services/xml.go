@@ -13,11 +13,18 @@ type Post struct {
 	Content string   `xml:"content"`
 	Author  Author   `xml:"author"`
 	Xml     string   `xml:",innerxml"`
+	Comments []Comment `xml:"comments>comment"`
 }
 
 type Author struct {
 	Id   string `xml:"id,attr"`
 	Name string `xml:",chardata"`
+}
+
+type Comment struct {
+	Id string 		`xml:"id,attr"`
+	Content string 	`xml:"content`
+	Author Author 	`xml:"author"`
 }
 
 func main() {
