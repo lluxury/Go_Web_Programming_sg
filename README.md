@@ -269,11 +269,12 @@ curl -i 127.0.0.1:8080/show_message
 使用第三方ORM软件gorm 来操作数据库<br>
 结果:在命令行中打印出存储的数据 <br>
 
-05-21 21:20
+05-21 21:20 xml
 
 05-23 16:27  decoder
 
 
+05-23 18:36  json
 
 
 ![http://hero.iamyann.com/blog_webchat.jpg](http://hero.iamyann.com/blog_webchat.jpg)<br>

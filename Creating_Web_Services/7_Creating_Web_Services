@@ -236,10 +236,15 @@ err = ioutil.WriteFile("post.xml", []byte(xml.Header + string(output)), 0644)
     return
   }
 
+
+
+
+
    // 通过Go分析和创建JSON
      // 分析JSON
        // 创建数据结构
-         // json:"<name>"
+json:"<name>" // 结构标签
+
        // json.Unmarshal解封
        // Decoder
          // io.Reader流
