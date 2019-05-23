@@ -264,7 +264,8 @@ json:"<name>" // 结构标签
 
      // 创建JSON
        // 创建结构
-       // Marshal Indent 函数
+       // MarshalIndent 函数
+
        // 或NewEncoder创建编码器
        // 调用Encode
          // 传递结构引用
