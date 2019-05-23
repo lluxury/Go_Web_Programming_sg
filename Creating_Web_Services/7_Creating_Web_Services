@@ -212,7 +212,9 @@ output, err := xml.Marshal(&post)      // 把结构封装为由字节切片组�
 
 // 创建结构,填充数据,调用函数封装
 
-         // Marshal Indent 函数有格式
+         // MarshalIndent 函数有格式
+output, err := xml.MarshalIndent(&post, "","\t")
+
          // xml . Header 常量加XML 声明
          // 或编码器
 
