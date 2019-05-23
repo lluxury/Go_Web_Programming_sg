@@ -44,7 +44,8 @@ func main() {
 		fmt.Println("Error marshalling to XML :", err)
 		return
 	}
-	err = ioutil.WriteFile("post.xml", output, 0644)
+	// err = ioutil.WriteFile("post.xml", output, 0644)
+	err = ioutil.WriteFile("post.xml", []byte(xml.Header + string(output)), 0644)
 	if err != nil {
 		fmt.Println("Error writing XML to file", err)
 		return

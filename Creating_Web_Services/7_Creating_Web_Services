@@ -176,7 +176,7 @@ Comments []Comment `xml:"comments>comment"`
     }
 
     // switch es := t.(type) {
-    switch se := t.(type) {                     // 检查token 的类型
+    switch se := t.(type) {                     // 检查token 的类型2
     case xml.StartElement:
       if se.Name.Local == "comment"{
         var comment Comment
@@ -215,8 +215,12 @@ output, err := xml.Marshal(&post)      // 把结构封装为由字节切片组�
          // MarshalIndent 函数有格式
 output, err := xml.MarshalIndent(&post, "","\t")
 
-         // xml . Header 常量加XML 声明
-         // 或编码器
+// 比较有样子了,还缺少声明
+
+         // 用xml.Header 常量加 XML 声明
+err = ioutil.WriteFile("post.xml", []byte(xml.Header + string(output)), 0644)
+
+         // 使用编码器构建
 
    // 通过Go分析和创建JSON
      // 分析JSON
