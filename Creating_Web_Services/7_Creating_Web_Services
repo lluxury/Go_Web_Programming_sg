@@ -147,13 +147,53 @@ Comments []Comment `xml:"comments>comment"`
        // 解封
          // 的Unmarshal 函数只接受字节切片 字符串参数
          // xml 转字符串
-           // 流和大文件不行
+           
+// 流和大文件不行
+// 以上方法只能处理小文件,流和大文件不行,流是什么?
+
+// 新方法通过 Decoder 结构， 一个元素接一个元素地对 XML 进行解码
+// 之前的方法是使用 Unmarshal 函数一次将整个 XML 解封为字符串
+
+// 需要创建一个 Decoder
+
          // 使用Decoder 结构来代替Unmarshal 函数
          // token 是一个表示XML 元素的接口
          // token取出时,返回io.EOF
            // 并将返回值中的err 变量的值设置为nil
          // 确认是否为StartElement
            // 起始标签
+  decoder := xml.NewDecoder(xmlFile)  //根据给定的 XML 数据生成相应的解码器
+  for{                                //每迭代一次解码器中的所有 XML 数据
+    t,err := decoder.Token()          // 每进行一次迭代，就从解码器里面获取一个token
+      break
+    if err == io.EOF{
+      break
+    }
+
+    if err != nil {
+      fmt.Println("Error decoding XML into tokens:",err)
+      return
+    }
+
+    // switch es := t.(type) {
+    switch se := t.(type) {                     // 检查token 的类型
+    case xml.StartElement:
+      if se.Name.Local == "comment"{
+        var comment Comment
+        decoder.DecodeElement(&comment, &se)    //将XML 数据解码至结构
+        fmt.Println(comment)
+
+// 注意适配类型方面,需要解码其他可以添加
+
+// Token有四种类型：
+// StartElement，用来表示XML开始节点；
+// EndElement，用来表示XML结束节点；
+// CharData，即为XML的原始文本(raw text)；
+// Comment，表示注释
+
+// 加了点私货,毕竟稍微动一下,就知道自己哪里不足了
+        
+
      // 创建XML
        // 样把Go 结构封装 marshal 至XML
          // 把Go 结构编码至XML
