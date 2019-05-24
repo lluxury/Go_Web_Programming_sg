@@ -269,14 +269,43 @@ curl -i 127.0.0.1:8080/show_message
 使用第三方ORM软件gorm 来操作数据库<br>
 结果:在命令行中打印出存储的数据 <br>
 
-05-21 21:20 xml
+* **05-21 21:20**    [7.4.1 xml_parsing_decoder](https://github.com/lluxury/Go_Web_Programming_sg/tree/9834ad6bcf7172166c957ae4991b358daf912c1e) 
+通过 Unmarshal 解析xml文件<br>
+通过 Decoder 解析xml文件<br>
+结果:在命令行中查看解析结果 <br>
 
-05-23 16:27  decoder
+* **05-23 16:27**    [7.4.2 xml_creating_marshal](https://github.com/lluxury/Go_Web_Programming_sg/tree/c5e3b87c7c8d6d3be359048f4c3c1800a674d7bd) 
+通过 Unmarshal 构建 xml文件<br>
+通过 Decoder 构建 xml文件<br>
+结果:文件浏览器中查看生成文件内容 <br>
 
-05-23 18:36  json
+* **05-23 18:36**    [7.5.1 json_parsing_unmarshal](https://github.com/lluxury/Go_Web_Programming_sg/tree/6d55ea7a75b6fe36d6ff715f4f3aaa340033b0f9) 
+通过 Unmarshal 解析json文件<br>
+通过 Decoder 解析json文件<br>
+结果:在命令行中查看解析结果 <br>
 
-05-23 21:10
-4个测试
+* **05-23 21:10**    [7.5.2 json_creating_marshal](https://github.com/lluxury/Go_Web_Programming_sg/tree/f7240f07523418c512faba2fdfb5e9a98926f73e) 
+通过 Unmarshal 构建 json 文件<br>
+通过 Decoder 构建 json 文件<br>
+结果:文件浏览器中查看生成文件内容 <br>
+
+* **05-24 10:20**    [7.6.0 web service](https://github.com/lluxury/Go_Web_Programming_sg/tree/f63bd6b51d1ea1a79b984830f19ca07cdd0f63a0) 
+前期知识汇总, 测试增删改查操作<br>
+
+curl -i -X POST -H "Content-Type: application/json"  -d '{"content":"My first post","author":"Sau Sheong"}' http://127.0.0.1:8080/post/ <br>
+
+
+curl -i -X GET http://127.0.0.1:8080/post/1 <br>
+
+
+curl -i -X PUT -H "Content-Type: application/json"  -d '{"content":"Updated post","author":"yann"}' http://127.0.0.1:8080/post/1 <br>
+
+
+curl -i -X DELETE http://127.0.0.1:8080/post/1 <br>
+
+结果:完成相关操作后,在数据库中看结果,详情也可以看公众号 <br>
+扫描下方二维码加入 <br>
+
 
 ![http://hero.iamyann.com/blog_webchat.jpg](http://hero.iamyann.com/blog_webchat.jpg)<br>
 Go_Web_Programming_sg go web 
