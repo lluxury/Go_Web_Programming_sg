@@ -284,11 +284,107 @@ json:"<name>" // 结构标签
   err = encoder.Encode(&post)                 //把结构编码到 JSON 文件里
 
 
+// 最后,前几章的内容汇总
+
+
    // 创建Go Web服务
      // 创建web服务
        // 对帖子创拉更删
        // CRUD 函数包裹web服务接口
        // 通过JSON 格式来传输数据
      // 调用
-       // curl -i -X POST -H "" -d  ''
-    
+func handlePost(w http.ResponseWriter, r *http.Request) (err error) {
+  len := r.ContentLength
+  body := make([]byte, len)   // 创建一个字节切片
+  r.Body.Read(body)           // 读取请求主体，并将其存储在字节切片中
+  var post Post
+  json.Unmarshal(body, &post) // 切片存储的数据解封至 Post 结构
+  err = post.create()         // 建数据库记录
+  if err != nil {
+    return
+  }
+  w.WriteHeader(200)
+  return
+}
+
+// 获取长度,创建切片,声明存储结构,调用 Create 方法
+
+// 测试
+curl -i -X POST -H "Content-Type: application/json"  -d '{"content":"My first post","author":"Sau Sheong"}' http://127.0.0.1:8080/post/
+
+
+
+
+
+func handleGet(w http.ResponseWriter, r *http.Request) (err error)  {
+  id, err := strconv.Atoi(path.Base(r.URL.Path))
+  if err != nil {
+    return
+  }
+  post, err := retrieve(id)   // 数据库里获取数据，并将其填充到 Post 结构中
+                              // 居然漏了个代码块 retrieve?
+  if err != nil {
+    return
+  }
+  output, err := json.MarshalIndent(&post, "", "\t\t")  // 把 Post 结构封装为 JSON 字符串
+  if err != nil {
+    return
+  }
+  w.Header().Set("Content-Type", "application/json")    // 把 JSON 数据写入 ResponseWriter
+  w.Write(output)
+  return
+}
+
+curl -i -X GET http://127.0.0.1:8080/post/1
+
+
+
+
+func handlePut(w http.ResponseWriter, r *http.Request) (err error) {
+  id, err := strconv.Atoi(path.Base(r.URL.Path))
+  if err != nil {
+    return
+  }
+  post, err := retrieve(id)   // 从数据库里获取指定帖子的数据，并将其填充至 Post 结构
+  if err != nil {
+    return
+  }
+  len := r.ContentLength
+  body := make([]byte, len)
+  r.Body.Read(body)           // 从请求主体中读取JSON 数据
+  json.Unmarshal(body, &post) // 把 JSON 数据解封至 Post 结构
+  err = post.update()         // 更新数据库
+  if err != nil {
+    return
+  }
+  w.WriteHeader(200)
+  return
+}
+
+curl -i -X PUT -H "Content-Type: application/json"  -d '{"content":"Updated post","author":"yann"}' http://127.0.0.1:8080/post/1
+
+// 需要通过 url 指定 帖子的新id
+
+
+
+func handleDelete(w http.ResponseWriter, r *http.Request) (err error) {
+  id, err := strconv.Atoi(path.Base(r.URL.Path))
+  if err != nil {
+    return
+  }
+  post, err := retrieve(id)   // 数据库里获取指定肝的数据并将其填充至 Post 结构
+  if err != nil {
+    return
+  }
+  err = post.delete()         // 从数据库删除帖子
+  if err != nil {
+    return
+  }
+  w.WriteHeader(200)
+  return
+}
+
+curl -i -X DELETE http://127.0.0.1:8080/post/1
+
+
+// 学习结束了,生存战刚刚开始

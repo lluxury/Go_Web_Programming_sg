@@ -276,7 +276,7 @@ curl -i 127.0.0.1:8080/show_message
 05-23 18:36  json
 
 05-23 21:10
-
+4个测试
 
 ![http://hero.iamyann.com/blog_webchat.jpg](http://hero.iamyann.com/blog_webchat.jpg)<br>
 Go_Web_Programming_sg go web 
